@@ -7,3 +7,4 @@ double consMedPadH = 20.0;
 
 final String fontFamilyRobotoRegular = "Roboto-Regular";
 final String fontFamilyRobotoMedium = "Roboto-Medium";
+final String fontFamilyMontserratBold = "Montserrat-Bold";

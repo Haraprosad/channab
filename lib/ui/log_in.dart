@@ -1,0 +1,243 @@
+import 'package:channab/shared/colors.dart';
+import 'package:channab/shared/constants.dart';
+import 'package:channab/shared/size_config.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    return Scaffold(
+      backgroundColor: buttonBackColor,
+      body: SingleChildScrollView(
+        child: Container(
+//          height: SizeConfig.screenHeight,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 60,
+              ),
+              Center(
+                child: Text(
+                  "Welcome back!",
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.bold,
+                    color: channabBackgroundColor,
+                    fontFamily: fontFamilyMontserratBold,
+                  ),
+                ),
+              ),
+              Center(
+                child: Image.asset(
+                  "assets/images/channab_logo.png",
+                  color: channabBackgroundColor,
+                  width: 150,
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .8,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 0,
+                      top: 80.0,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: channabBackgroundColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(35.0),
+                            topRight: Radius.circular(35.0),
+                          ),
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: 20.0, top: 20.0, right: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 50.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Email",
+                                  style: TextStyle(
+                                    fontFamily: fontFamilyMontserratBold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                height: 64.0,
+                                child: TextFormField(
+                                  decoration: new InputDecoration(
+                                    border: new OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                        const Radius.circular(10.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Password",
+                                  style: TextStyle(
+                                    fontFamily: fontFamilyMontserratBold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                height: 64.0,
+                                child: TextFormField(
+                                  decoration: new InputDecoration(
+                                      border: new OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          const Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _obscureText = !_obscureText;
+                                          });
+                                        },
+                                        child: Icon(_obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                      )),
+                                  obscureText: _obscureText,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+//                                    ExtendedNavigator.ofRouter<Router>()
+//                                        .pushNamed(Routes.forgetPasswordPage);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Forget password?",
+                                        style: TextStyle(
+                                            fontFamily:
+                                                fontFamilyMontserratBold,
+                                            fontSize: 12.0,
+                                            color: buttonBackColor),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Color(0xFF00B9FF),
+                                  ),
+                                  color: Color(0xFF00B9FF),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: MaterialButton(
+                                  color: buttonBackColor,
+                                  onPressed: () {},
+                                  child: Container(
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20.0, bottom: 20.0),
+                                        child: Text(
+                                          "SIGN IN",
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "Montserrat-Bold",
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              Center(
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: "Don\'t have an account? ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: fontFamilyMontserratBold,
+                                        color: textColorBlackLight,
+                                        fontSize: 12),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: 'Sign Up',
+                                          style: TextStyle(
+                                              fontFamily:
+                                                  fontFamilyMontserratBold,
+                                              fontWeight: FontWeight.bold,
+                                              color: buttonBackColor,
+                                              fontSize: 12)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              //todo end
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

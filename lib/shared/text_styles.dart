@@ -161,3 +161,12 @@ final desPageDescriptionTextStyle = TextStyle(
     letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
     fontWeight: FontWeight.normal,
     height: 1.1666666666666667);
+
+// animal list caption
+final animalListCaptionTextStyle = TextStyle(
+    color: Color.fromRGBO(51, 72, 98, 1),
+    fontFamily: fontFamilyRobotoMedium,
+    fontSize: 20,
+    letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+    fontWeight: FontWeight.normal,
+    height: 1.3125);
