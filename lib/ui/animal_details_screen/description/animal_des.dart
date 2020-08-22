@@ -5,7 +5,7 @@ import 'package:channab/shared/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'custom_switch.dart';
+import '../../custom_switch.dart';
 
 class AnimalDesUI extends StatefulWidget {
   @override

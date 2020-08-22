@@ -189,3 +189,38 @@ final imageUploadTextStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.normal,
     height: 1.1666666666666667);
+
+//filter page caption
+final filterPageCaptionTextStyle = TextStyle(
+    color: Color.fromRGBO(0, 178, 45, 1),
+    fontFamily: fontFamilyRobotoMedium,
+    fontSize: 25,
+    fontWeight: FontWeight.normal,
+    height: 0.84);
+
+//filter page title textstyle
+
+final filterPageTitleTextStyle = TextStyle(
+    color: Color.fromRGBO(42, 60, 91, 1),
+    fontFamily: fontFamilyRobotoMedium,
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+    height: 1.1666666666666667);
+
+//filter unselectedtextstyle
+
+final filterUnselectedTextStyle = TextStyle(
+    color: Color.fromRGBO(0, 178, 45, 1),
+    fontFamily: fontFamilyRobotoRegular,
+    fontSize: 13,
+    fontWeight: FontWeight.normal,
+    height: 1.6153846153846154);
+
+//filter selectedTextStyle
+
+final filterSelectedTextStyle = TextStyle(
+    color: Color.fromRGBO(255, 255, 255, 1),
+    fontFamily: fontFamilyRobotoRegular,
+    fontSize: 13,
+    fontWeight: FontWeight.normal,
+    height: 1.6153846153846154);

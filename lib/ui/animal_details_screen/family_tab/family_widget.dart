@@ -4,7 +4,7 @@ import 'package:channab/shared/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import 'child.dart';
+import '../../child.dart';
 
 class FamilyWidgetUI extends StatefulWidget {
   @override

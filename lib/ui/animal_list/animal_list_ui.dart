@@ -1,6 +1,7 @@
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/filter_dialog_page.dart';
 import 'package:flutter/material.dart';
 
 import '../child.dart';
@@ -48,7 +49,11 @@ class _AnimalListUIState extends State<AnimalListUI> {
         leading: Icon(Icons.arrow_back),
         title: Text("Animals List"),
         actions: [
-          Image.asset("assets/images/frame.png"),
+          InkWell(
+              onTap: () {
+                _getFilterPageDialog();
+              },
+              child: Image.asset("assets/images/frame.png")),
         ],
       ),
       body: SingleChildScrollView(
@@ -183,5 +188,13 @@ class _AnimalListUIState extends State<AnimalListUI> {
     } else {
       return lightRedColor;
     }
+  }
+
+  void _getFilterPageDialog() {
+    Navigator.of(context).push(new MaterialPageRoute<Null>(
+        builder: (BuildContext context) {
+          return FilterPageDialog();
+        },
+        fullscreenDialog: true));
   }
 }

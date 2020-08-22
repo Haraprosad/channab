@@ -2,15 +2,19 @@ import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
 import 'package:channab/shared/text_styles.dart';
-import 'package:channab/ui/family_widget.dart';
-import 'package:channab/ui/gallery_widget.dart';
+import 'package:channab/ui/animal_details_screen/family_tab/family_pop_up.dart';
+import 'package:channab/ui/animal_details_screen/family_tab/family_widget.dart';
+import 'package:channab/ui/animal_details_screen/gallery_tab/gallery_pop_up.dart';
+import 'package:channab/ui/animal_details_screen/gallery_tab/gallery_widget.dart';
+import 'package:channab/ui/animal_details_screen/health_tab/health_pop_up.dart';
+import 'package:channab/ui/animal_details_screen/milking_tab/milking_pop_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import 'animal_details_screen/health_tab/health_widget.dart';
+import 'animal_details_screen/milking_tab/milking_widget.dart';
 import 'custom_switch.dart';
-import 'health_widget.dart';
-import 'milking_widget.dart';
 
 class AnimalDetailsUI extends StatefulWidget {
   @override
@@ -347,13 +351,42 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: buttonBackColor,
-                      child: Icon(
-                        Icons.add,
-                        color: channabBackgroundColor,
+                    InkWell(
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: buttonBackColor,
+                        child: Icon(
+                          Icons.add,
+                          color: channabBackgroundColor,
+                        ),
                       ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          child: AlertDialog(
+                            content: Stack(
+                              overflow: Overflow.visible,
+                              children: <Widget>[
+                                Positioned(
+                                  right: -40.0,
+                                  top: -40.0,
+                                  child: InkResponse(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: CircleAvatar(
+                                      child: Icon(Icons.close),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                getFormWidget(),
+                              ],
+                            ),
+                          ),
+                        );
+                        print("On tap is pressed");
+                      },
                     ),
                     CircleAvatar(
                       radius: 20,
@@ -394,5 +427,21 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
         ),
       ),
     );
+  }
+
+  //this is the pop up widgets
+  getFormWidget() {
+    if (seletedTabNumber == 0) {
+      return GalleryPopUp();
+    }
+    if (seletedTabNumber == 1) {
+      return FamilyPopUp();
+    }
+    if (seletedTabNumber == 2) {
+      return MilkingPopUp();
+    }
+    if (seletedTabNumber == 3) {
+      return HealthPopUp();
+    }
   }
 }

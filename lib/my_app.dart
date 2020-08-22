@@ -1,4 +1,4 @@
-import 'package:channab/ui/farm_animals_info_upload/farm_animals_info_up.dart';
+import 'package:channab/ui/animal_list/animal_list_ui.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FarmAnimalListUpUI(),
+      home: AnimalListUI(),
     );
   }
 }
