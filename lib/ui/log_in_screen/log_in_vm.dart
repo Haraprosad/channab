@@ -18,7 +18,9 @@ class LogInVM {
     var logInResponse =
         await LogInRepos.requestLogIn(dio, mobileNumber, password);
     print(logInResponse);
-    var data = json.decode(logInResponse);
-    print(data);
+    var data = json.decode(logInResponse.data);
+    print(data.message);
+    print(data.status); //200
+    print(data.token); // save to sp utils
   }
 }

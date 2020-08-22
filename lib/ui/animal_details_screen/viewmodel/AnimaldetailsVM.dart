@@ -19,7 +19,7 @@ class AnimalDetailsVM {
 
   void getAllData(int id) {
     var response = ViewParticularAnimal.getParticularAnimal(dio, id);
-    var model = MyAnimalModel.fromJson(json.decode(response));
+    var model = MyAnimalModel.fromJson(json.decode(response.data));
     stream.add(model);
     List data = [];
     data.map((e) => e.name == "");
