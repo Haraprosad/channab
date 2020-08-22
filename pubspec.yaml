@@ -23,9 +23,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #Networking
+  dio: ^3.0.10
   chopper: ^2.0.0
   path_provider: ^1.6.11
-  device_info: ^0.4.2+6
+  # check connectivity
+  connectivity: ^0.4.8+6
+  # progress dialogs
+  progress_indicators: ^0.1.5
+  progress_dialog: ^1.2.3
+  liquid_progress_indicator: ^0.3.2
+  # dotted border
+  dotted_border: ^1.0.6
+  # Image
+  image_cropper: ^1.2.3
+  image_picker: ^0.6.7+2
 
 
   # The following adds the Cupertino Icons font to your application.

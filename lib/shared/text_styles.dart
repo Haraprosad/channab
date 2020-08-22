@@ -170,3 +170,22 @@ final animalListCaptionTextStyle = TextStyle(
     letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
     fontWeight: FontWeight.normal,
     height: 1.3125);
+
+//hint text style
+
+final TextStyle hintTextStyle = TextStyle(
+    color: Color.fromRGBO(173, 172, 167, 1),
+    fontFamily: fontFamilyRobotoRegular,
+    fontSize: 16,
+    letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+    fontWeight: FontWeight.normal,
+    height: 1.6153846153846154);
+
+//image upload  textStyle
+
+final imageUploadTextStyle = TextStyle(
+    color: Color.fromRGBO(0, 178, 45, 1),
+    fontFamily: fontFamilyRobotoMedium,
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+    height: 1.1666666666666667);

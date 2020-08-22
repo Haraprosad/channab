@@ -1,7 +1,0 @@
-enum ApiResponseType {
-  SUCCESS,
-  ERROR,
-  BAD_REQUEST,
-  ON_SESSION_OUT,
-  UNKNOWN_ERROR
-}
