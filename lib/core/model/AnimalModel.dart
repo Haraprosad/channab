@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-MyModel myModelFromJson(String str) => MyModel.fromJson(json.decode(str));
+MyAnimalModel myModelFromJson(String str) => MyAnimalModel.fromJson(json.decode(str));
 
-String myModelToJson(MyModel data) => json.encode(data.toJson());
+String myModelToJson(MyAnimalModel data) => json.encode(data.toJson());
 
-class MyModel {
-  MyModel({
+class MyAnimalModel {
+  MyAnimalModel({
     this.status,
     this.allDescriptionList,
     this.productDetails,
@@ -33,7 +33,7 @@ class MyModel {
   FemaleParentsOfAnimals femaleParentsOfAnimals;
   FemaleParentsOfAnimals maleParentsAnimal;
 
-  factory MyModel.fromJson(Map<String, dynamic> json) => MyModel(
+  factory MyAnimalModel.fromJson(Map<String, dynamic> json) => MyAnimalModel(
     status: json["status"],
     allDescriptionList: List<dynamic>.from(json["all_description_list"].map((x) => x)),
     productDetails: ProductDetails.fromJson(json["product_details"]),
