@@ -3,6 +3,8 @@ import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/image_picker_cropper.dart';
 import 'package:channab/shared/size_config.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/farm_animals_info_upload/animalInfoUpVM.dart';
+import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,10 @@ class FarmAnimalListUpUI extends StatefulWidget {
 }
 
 class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
+  AnimalInfoUpVM _animalInfoUpVM;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var imgProfile;
+  var imgFile;
   //madis and category
   List<String> categoriesName = [
     "Cow",
@@ -22,15 +27,36 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
     "Horse",
     "Others"
   ];
+  String animalTag;
   String selectedCategoryName = "Cow";
   List<String> animalGender = ["Male", "Female"];
   String selectedGender = "Male";
   //date
-  var selectedDate;
+  DateTime selectedDate;
+
+  getSnackBar(String message) {
+    return SnackBar(
+      content: Text(message),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    _animalInfoUpVM = AnimalInfoUpVM();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: buttonBackColor,
@@ -120,6 +146,9 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                       Container(
                         height: 45.0,
                         child: TextFormField(
+                          onChanged: (v) {
+                            animalTag = v;
+                          },
                           decoration: new InputDecoration(
                             hintText: "\$101",
                             contentPadding: EdgeInsets.only(left: 20, top: 5),
@@ -318,7 +347,27 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                                   fontFamily: fontFamilyRobotoMedium),
                             ),
                             onPressed: () {
-                              //todo
+                              print("response is calling");
+                              if ((imgProfile != null) &&
+                                  (animalTag != null) &&
+                                  (selectedDate != null) &&
+                                  selectedCategoryName != null &&
+                                  selectedGender != null) {
+                                Response res =
+                                    _animalInfoUpVM.getInfoUpResponse(
+                                        animalTag,
+                                        selectedCategoryName,
+                                        selectedGender,
+                                        selectedDate,
+                                        imgFile);
+                                _scaffoldKey.currentState.showSnackBar(
+                                    getSnackBar(res.statusMessage));
+                              } else {
+                                // Find the Scaffold in the widget tree and use
+                                // it to show a SnackBar.
+                                _scaffoldKey.currentState.showSnackBar(
+                                    getSnackBar("Please fill up all fields."));
+                              }
                             },
                           ),
                         ),
@@ -365,6 +414,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
     var byteImage = await result.readAsBytes();
 
     if (result != null && result != "NO") {
+      imgFile = result;
       setState(() {
         imgProfile = byteImage;
       });
