@@ -21,6 +21,9 @@ class AnimalDetailsVM {
     var response = ViewParticularAnimal.getParticularAnimal(dio, id);
     var model = MyAnimalModel.fromJson(json.decode(response));
     stream.add(model);
+    List data = [];
+    data.map((e) => e.name == "");
+
   }
 
   void dispose() {
