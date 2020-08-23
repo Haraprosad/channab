@@ -1,3 +1,4 @@
+import 'package:channab/core/model/AnimalModel.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/painting.dart';
 import '../../child.dart';
 
 class FamilyWidgetUI extends StatefulWidget {
-
   final AnimalDetailsVM _animalDetailsVM;
 
   FamilyWidgetUI(this._animalDetailsVM);
@@ -35,66 +35,80 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
-      child: ListView.builder(
-          itemCount: childs.length,
-          scrollDirection: Axis.vertical,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: consSmallPad * 2,
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      padding: EdgeInsets.only(left: consSmallPad * 2),
-                      child: Text(
-                        "Parents",
-                        style: captionTextStyle,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: consMedPadH,
-                  ),
-                  cardWidget(false, "Animal Tag Name",
-                      "assets/images/cow_img.jpeg", "Male"),
-                  SizedBox(
-                    height: consSmallPad * 2,
-                  ),
-                  cardWidget(false, "Animal Tag Name",
-                      "assets/images/cow_img.jpeg", "Female"),
-                  SizedBox(
-                    height: consMedPad * 2,
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      padding: EdgeInsets.only(left: consSmallPad * 2),
-                      child: Text(
-                        "Childs",
-                        style: captionTextStyle,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: consSmallPad * 2,
-                  ),
-                  cardWidget(true, childs[index].name,
+    return FutureBuilder<MyAnimalModel>(
+        future: widget._animalDetailsVM.getFamilyData(),
+        builder: (context, snapshot) {
+          var childList = snapshot.data.allChildsUserCanSelect;
+          var maleParent = snapshot.data.maleParentsAnimal;
+          var femaleParent = snapshot.data.femaleParentsOfAnimals;
+          int count;
+          if (childList.length == 0) {
+            count = 1;
+          } else {
+            count = childList.length;
+          }
+          return Container(
+            padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
+            child: ListView.builder(
+                itemCount: count,
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: consSmallPad * 2,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            padding: EdgeInsets.only(left: consSmallPad * 2),
+                            child: Text(
+                              "Parents",
+                              style: captionTextStyle,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: consMedPadH,
+                        ),
+                        cardWidget(false, maleParent.animalTag,
+                            maleParent.animalImage, "Male"),
+                        SizedBox(
+                          height: consSmallPad * 2,
+                        ),
+                        cardWidget(false, femaleParent.animalTag,
+                            femaleParent.animalImage, "Female"),
+                        SizedBox(
+                          height: consMedPad * 2,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            padding: EdgeInsets.only(left: consSmallPad * 2),
+                            child: Text(
+                              "Childs",
+                              style: captionTextStyle,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: consSmallPad * 2,
+                        ),
+                        cardWidget(true, childList[index].animalTag,
+                            "assets/images/cow_img.jpeg", "Male",
+                            age: childs[index].age)
+                      ],
+                    );
+                  }
+                  //todo image response and age response of child is not provided in api
+                  return cardWidget(true, childs[index].name,
                       "assets/images/cow_img.jpeg", "Male",
-                      age: childs[index].age)
-                ],
-              );
-            }
-            return cardWidget(
-                true, childs[index].name, "assets/images/cow_img.jpeg", "Male",
-                age: childs[index].age);
-          }),
-    );
+                      age: "1 Year 11 Months");
+                }),
+          );
+        });
   }
 
   cardWidget(bool isChild, String title, String img, String gender,

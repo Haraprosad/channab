@@ -1,3 +1,4 @@
+import 'package:channab/core/model/AnimalModel.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
@@ -18,34 +19,44 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 5 * 82.0,
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return costCardWidget();
-                  }),
-            ),
-            SizedBox(
-              height: consSmallPad * 3,
-            ),
-            Text(
-              "Total Health Expenses : 5000 PKR",
-              style: healthTitleTextStyle,
-            ),
-          ],
-        ),
-      ),
+      child: FutureBuilder<MyAnimalModel>(
+          future: widget._animalDetailsVM.getHealthData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var model = snapshot.data.allHealthRecordList;
+              //todo all health record list response has no data
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: model.length * 82.0,
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: model.length,
+                          itemBuilder: (context, index) {
+                            return costCardWidget(model[index]);
+                          }),
+                    ),
+                    SizedBox(
+                      height: consSmallPad * 3,
+                    ),
+                    Text(
+                      "Total Health Expenses : 5000 PKR",
+                      style: healthTitleTextStyle,
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          }),
     );
   }
 
-  Widget costCardWidget() {
+  Widget costCardWidget(var model) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: consSmallPad * 2),
       padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH * 2),
@@ -74,6 +85,7 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //todo health record is not found
                     Text(
                       "STACY MARTIN",
                       style: healthTitleTextStyle,
