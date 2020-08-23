@@ -195,7 +195,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
           child: TabBarView(
             controller: _tabController,
             children: [
-              HealthWidgetUI(),
+              HealthWidgetUI(_animalDetailsVM),
               FamilyWidgetUI(_animalDetailsVM),
               MilkingWidgetUI(_animalDetailsVM),
               GalleryWidgetUI(_animalDetailsVM),
