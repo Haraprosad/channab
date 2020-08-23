@@ -1,6 +1,7 @@
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
+import 'package:channab/ui/animal_list/animal_list_ui.dart';
 import 'package:channab/ui/log_in_screen/log_in_vm.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   //mobile number and password
   String mobileNumber;
   String password;
+
   //text controller
   TextEditingController phoneNumController;
   TextEditingController passwordController;
@@ -42,6 +44,17 @@ class _LoginPageState extends State<LoginPage> {
     phoneNumController = TextEditingController();
     passwordController = TextEditingController();
     _logInVM = LogInVM();
+
+    _logInVM.loginSatus.stream.listen((event) {
+      if (event.isNotEmpty) {
+        //go to next page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AnimalListUI(event)),
+        );
+      }
+    });
+
     super.initState();
   }
 
@@ -49,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     phoneNumController.dispose();
     passwordController.dispose();
+    _logInVM.dispose();
     super.dispose();
   }
 
@@ -326,7 +340,8 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (login) {
-        _logInVM.getLogInResponse(mobileNumber, password, context);
+        var ouput = _logInVM.getLogInResponse(mobileNumber, password, context);
+        //todo notify error
       }
     } else {
       Scaffold.of(context).showSnackBar(
