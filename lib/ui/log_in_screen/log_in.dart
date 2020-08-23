@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class  LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -340,8 +340,18 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (login) {
-        var ouput = _logInVM.getLogInResponse(mobileNumber, password, context);
+        var ouput =
+            await _logInVM.getLogInResponse(mobileNumber, password, context);
         //todo notify error
+//        Scaffold.of(context).showSnackBar(
+//          SnackBar(
+//            content: Text(
+//              ouput,
+//              style: TextStyle(color: Colors.red),
+//            ),
+//            behavior: SnackBarBehavior.floating,
+//          ),
+//        );
       }
     } else {
       Scaffold.of(context).showSnackBar(

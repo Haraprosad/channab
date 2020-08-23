@@ -4,6 +4,7 @@ import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
 import 'package:channab/ui/animal_details_screen/animal_details_ui.dart';
 import 'package:channab/ui/animal_list/animal_list_vm.dart';
+import 'package:channab/ui/farm_animals_info_upload/farm_animals_info_up.dart';
 import 'package:channab/ui/filter_dialog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,9 +104,19 @@ class _AnimalListUIState extends State<AnimalListUI> {
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: buttonBackColor,
                       ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FarmAnimalListUpUI(),
+                            ),
+                          );
+                        },
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
