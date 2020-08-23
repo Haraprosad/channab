@@ -2,6 +2,7 @@ import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/animal_details_screen/description/AnimalDetailsDescriptionVM.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -23,6 +24,18 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
   var gender = "Male";
 
   var _switchValue = true;
+
+  AnimalDetailsDescriptionVM _vm;
+
+  @override
+  void initState() {
+    int id = 20;
+    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
+    _vm = AnimalDetailsDescriptionVM(token);
+    _vm.getAllData(id);
+    super.initState();
+  }
+
   //todo******************************
   @override
   Widget build(BuildContext context) {

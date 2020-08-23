@@ -2,12 +2,17 @@ import 'package:channab/core/model/animal_list_model.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/animal_details_screen/animal_details_ui.dart';
 import 'package:channab/ui/animal_list/animal_list_vm.dart';
 import 'package:channab/ui/filter_dialog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AnimalListUI extends StatefulWidget {
+  final String token;
+
+  AnimalListUI(this.token);
+
   @override
   _AnimalListUIState createState() => _AnimalListUIState();
 }
@@ -26,10 +31,10 @@ class _AnimalListUIState extends State<AnimalListUI> {
   void initState() {
 //    String token = getStringValuesSF();
 
-    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
+//    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
 
     //todo token have to be changed
-    _animalListVM = AnimalListVM(token);
+    _animalListVM = AnimalListVM(widget.token);
     _animalListVM.getAllData();
     super.initState();
   }
@@ -111,18 +116,28 @@ class _AnimalListUIState extends State<AnimalListUI> {
               ),
               StreamBuilder<AnimalListModel>(
                   stream: _animalListVM.getStream.stream,
-                  builder: (context, snapshot) {
+                  builder: (ctx, snapshot) {
                     if (snapshot.hasData) {
                       var model = snapshot.data;
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: consMedPadH),
                         height: model.allAnimalList.length * 108.0,
                         child: ListView.builder(
-                            itemCount: model.allAnimalList.length,
-                            scrollDirection: Axis.vertical,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return animalCardWidget(
+                          itemCount: model.allAnimalList.length,
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (ctx, index) {
+                            return InkWell(
+                              onTap: () {
+                                //now hardcoded to show the demo
+                                var id = 20;
+                                Navigator.push(
+                                  ctx,
+                                  MaterialPageRoute(
+                                      builder: (context) => AnimalDetailsUI()),
+                                );
+                              },
+                              child: animalCardWidget(
                                   true,
                                   model.allAnimalList[index].animalTag,
                                   model.allAnimalList[index].image,
@@ -131,8 +146,10 @@ class _AnimalListUIState extends State<AnimalListUI> {
                                   model.allAnimalList[index].animalType,
                                   age:
                                       "${model.allAnimalList[index].yearResult} year "
-                                      "${model.allAnimalList[index].monthResult}");
-                            }),
+                                      "${model.allAnimalList[index].monthResult}"),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return CircularProgressIndicator();

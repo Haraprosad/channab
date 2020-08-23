@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:channab/core/layers/API.dart';
@@ -9,11 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LogInVM {
   static Dio dio;
 
+  StreamController<String> loginSatus;
+
   LogInVM() {
     dio = API.getInstance();
-//    dio.options.headers['content-Type'] = 'application/json';
     dio.options.headers["x-api-key"] =
         "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b";
+
+    loginSatus = StreamController();
   }
 
   getLogInResponse(
@@ -29,6 +33,18 @@ class LogInVM {
       prefs.setString('logInToken', data['token']);
     }
 
-    return logInResponse;
+    loginSatus.add(data['token']);
+
+    return data;
+  }
+
+  // 7528819272
+  // 1234567
+
+  dispose() {
+    loginSatus.close();
   }
 }
+
+
+class LoginStatus {}
