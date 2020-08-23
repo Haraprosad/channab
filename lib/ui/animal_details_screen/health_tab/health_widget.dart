@@ -15,6 +15,7 @@ class HealthWidgetUI extends StatefulWidget {
 }
 
 class _HealthWidgetUIState extends State<HealthWidgetUI> {
+  int totalAmount = 0;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,6 +25,7 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var model = snapshot.data.allHealthRecordList;
+
               //todo all health record list response has no data
               return Container(
                 child: Column(
@@ -36,14 +38,20 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
                           scrollDirection: Axis.vertical,
                           itemCount: model.length,
                           itemBuilder: (context, index) {
-                            return costCardWidget(model[index]);
+                            totalAmount = totalAmount +
+                                int.parse(model[index].costAmount);
+                            return costCardWidget(
+                                model[index].tagName,
+                                model[index].costAmount,
+                                model[index].ago,
+                                model[index].textDescription);
                           }),
                     ),
                     SizedBox(
                       height: consSmallPad * 3,
                     ),
                     Text(
-                      "Total Health Expenses : 5000 PKR",
+                      "Total Health Expenses : $totalAmount PKR",
                       style: healthTitleTextStyle,
                     ),
                   ],
@@ -56,7 +64,8 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
     );
   }
 
-  Widget costCardWidget(var model) {
+  Widget costCardWidget(
+      String name, String cost, String ago, String description) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: consSmallPad * 2),
       padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH * 2),
@@ -87,23 +96,23 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
                   children: [
                     //todo health record is not found
                     Text(
-                      "STACY MARTIN",
+                      name,
                       style: healthTitleTextStyle,
                     ),
                     Text(
-                      "Cost: 200 PKR",
+                      cost,
                       style: healthPriceTextStyle,
                     ),
                   ],
                 ),
                 Text(
-                  "30 MIN AGO",
+                  ago,
                   style: healthPageTimeTextStyle,
                 ),
                 Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "I really don’t get what all the fuss is about.This will be better solution",
+                      description,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: healthPageDesTextStyle,
