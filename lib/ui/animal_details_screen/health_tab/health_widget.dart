@@ -11,27 +11,31 @@ class HealthWidgetUI extends StatefulWidget {
 class _HealthWidgetUIState extends State<HealthWidgetUI> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            height: 5 * 82.0,
-            child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return costCardWidget();
-                }),
-          ),
-          SizedBox(
-            height: consSmallPad * 3,
-          ),
-          Text(
-            "Total Health Expenses : 5000 PKR",
-            style: healthTitleTextStyle,
-          ),
-        ],
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 5 * 82.0,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    return costCardWidget();
+                  }),
+            ),
+            SizedBox(
+              height: consSmallPad * 3,
+            ),
+            Text(
+              "Total Health Expenses : 5000 PKR",
+              style: healthTitleTextStyle,
+            ),
+          ],
+        ),
       ),
     );
   }

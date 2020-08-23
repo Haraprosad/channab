@@ -322,22 +322,11 @@ class _LoginPageState extends State<LoginPage> {
 
       progress?.listen((data) {
         // update progress dialog here
-        pr?.update(
-            progressWidget: LiquidCircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(Colors.pink),
-          // Defaults to the current Theme's accentColor.
-          backgroundColor: Colors.white,
-          // Defaults to the current Theme's backgroundColor.
-          borderColor: Colors.red,
-          borderWidth: 5.0,
-          value: data.toDouble(),
-          direction: Axis.vertical,
-          // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-        ));
+        pr?.update(progressWidget: CircularProgressIndicator());
       });
 
       if (login) {
-        _logInVM.getLogInResponse(mobileNumber, password);
+        _logInVM.getLogInResponse(mobileNumber, password, context);
       }
     } else {
       Scaffold.of(context).showSnackBar(

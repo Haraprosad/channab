@@ -14,7 +14,6 @@ import 'package:flutter/painting.dart';
 
 import 'animal_details_screen/health_tab/health_widget.dart';
 import 'animal_details_screen/milking_tab/milking_widget.dart';
-import 'custom_switch.dart';
 
 class AnimalDetailsUI extends StatefulWidget {
   @override
@@ -52,6 +51,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   //tab bar widget
   Widget tabBarWidget() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: consMedPadH),
@@ -183,8 +183,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
             color: dividerColor,
           ),
         ),
-        Container(
-          height: 2000,
+        Expanded(
           child: TabBarView(
             controller: _tabController,
             children: [
@@ -208,222 +207,220 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
         backgroundColor: channabBackgroundColor,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: channabBackgroundColor,
-          child: Column(
-            children: [
-              //***********Upper portion :1**********
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: consMedPadH),
-                height: 105,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 39 * 2.0,
-                            width: 39 * 2.0,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  top: 0,
-                                  bottom: 0,
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(imgUrl),
-                                    radius: 38,
-                                  ),
+      body: Container(
+        color: channabBackgroundColor,
+        child: Column(
+          children: [
+            //***********Upper portion :1**********
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: consMedPadH),
+              height: 105,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 39 * 2.0,
+                          width: 39 * 2.0,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage(imgUrl),
+                                  radius: 38,
                                 ),
-                                Positioned(
-                                  right: 10,
-                                  bottom: 0,
+                              ),
+                              Positioned(
+                                right: 10,
+                                bottom: 0,
+                                child: CircleAvatar(
+                                  backgroundColor: channabBackgroundColor,
                                   child: CircleAvatar(
-                                    backgroundColor: channabBackgroundColor,
-                                    child: CircleAvatar(
-                                      backgroundColor: buttonBackColor,
-                                      radius: 8,
-                                    ),
-                                    radius: 10,
+                                    backgroundColor: buttonBackColor,
+                                    radius: 8,
                                   ),
-                                )
-                              ],
-                            ),
+                                  radius: 10,
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: consSmallPad,
-                          ),
-                          Text(
-                            nameTag,
-                            style: tagNameTextStyle,
-                          ),
-                        ],
-                      ),
-                      flex: 2,
-                    ),
-                    SizedBox(
-                      width: SizeConfig.medPadH,
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 38,
-                            padding: EdgeInsets.all(consSmallPad * 1.5),
-                            decoration: BoxDecoration(
-                                color: buttonBackColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            child: Center(
-                                child: Text(
-                              "Age : $age",
-                              style: btnTextStyle,
-                            )),
-                          ),
-                          Container(
-                            height: 38,
-                            padding: EdgeInsets.all(consSmallPad * 1.5),
-                            decoration: BoxDecoration(
-                                color: buttonBackColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            child: Center(
-                                child: Text(
-                              "$breed",
-                              style: btnTextStyle,
-                            )),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: SizeConfig.medPad,
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 38,
-                            padding: EdgeInsets.all(consSmallPad * 1.5),
-                            decoration: BoxDecoration(
-                                color: buttonBackColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            child: Center(
-                                child: Text(
-                              "$gender",
-                              style: btnTextStyle,
-                            )),
-                          ),
-                          Container(
-                            height: 38,
-                            padding: EdgeInsets.all(consSmallPad * 1.5),
-                            decoration: BoxDecoration(
-                                color: buttonBackColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            child: Center(
-                                child: Text(
-                              "$status",
-                              style: btnTextStyle,
-                            )),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //********************Upper Portion : 1 end**********
-              SizedBox(
-                height: consMedPadH,
-              ),
-              //********************Upper Portion: 2 start********
-              Container(
-                padding: EdgeInsets.only(right: consMedPadH, left: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: buttonBackColor,
-                        child: Icon(
-                          Icons.add,
-                          color: channabBackgroundColor,
                         ),
+                        SizedBox(
+                          height: consSmallPad,
+                        ),
+                        Text(
+                          nameTag,
+                          style: tagNameTextStyle,
+                        ),
+                      ],
+                    ),
+                    flex: 2,
+                  ),
+                  SizedBox(
+                    width: SizeConfig.medPadH,
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 38,
+                          padding: EdgeInsets.all(consSmallPad * 1.5),
+                          decoration: BoxDecoration(
+                              color: buttonBackColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18))),
+                          child: Center(
+                              child: Text(
+                            "Age : $age",
+                            style: btnTextStyle,
+                          )),
+                        ),
+                        Container(
+                          height: 38,
+                          padding: EdgeInsets.all(consSmallPad * 1.5),
+                          decoration: BoxDecoration(
+                              color: buttonBackColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18))),
+                          child: Center(
+                              child: Text(
+                            "$breed",
+                            style: btnTextStyle,
+                          )),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.medPad,
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 38,
+                          padding: EdgeInsets.all(consSmallPad * 1.5),
+                          decoration: BoxDecoration(
+                              color: buttonBackColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18))),
+                          child: Center(
+                              child: Text(
+                            "$gender",
+                            style: btnTextStyle,
+                          )),
+                        ),
+                        Container(
+                          height: 38,
+                          padding: EdgeInsets.all(consSmallPad * 1.5),
+                          decoration: BoxDecoration(
+                              color: buttonBackColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18))),
+                          child: Center(
+                              child: Text(
+                            "$status",
+                            style: btnTextStyle,
+                          )),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //********************Upper Portion : 1 end**********
+            SizedBox(
+              height: consMedPadH,
+            ),
+            //********************Upper Portion: 2 start********
+            Container(
+              padding: EdgeInsets.only(right: consMedPadH, left: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: buttonBackColor,
+                      child: Icon(
+                        Icons.add,
+                        color: channabBackgroundColor,
                       ),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          child: AlertDialog(
-                            content: Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Positioned(
-                                  right: -40.0,
-                                  top: -40.0,
-                                  child: InkResponse(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: CircleAvatar(
-                                      child: Icon(Icons.close),
-                                      backgroundColor: Colors.red,
-                                    ),
+                    ),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          content: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Positioned(
+                                right: -40.0,
+                                top: -40.0,
+                                child: InkResponse(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: CircleAvatar(
+                                    child: Icon(Icons.close),
+                                    backgroundColor: Colors.red,
                                   ),
                                 ),
-                                getFormWidget(),
-                              ],
-                            ),
+                              ),
+                              getFormWidget(),
+                            ],
                           ),
-                        );
-                        print("On tap is pressed");
-                      },
+                        ),
+                      );
+                      print("On tap is pressed");
+                    },
+                  ),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: buttonBackColor,
+                    child: Image.asset(
+                      "assets/images/alarm.png",
+                      color: channabBackgroundColor,
                     ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: buttonBackColor,
-                      child: Image.asset(
-                        "assets/images/alarm.png",
-                        color: channabBackgroundColor,
-                      ),
+                  ),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: buttonBackColor,
+                    child: Image.asset(
+                      "assets/images/note.png",
+                      color: channabBackgroundColor,
                     ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: buttonBackColor,
-                      child: Image.asset(
-                        "assets/images/note.png",
-                        color: channabBackgroundColor,
-                      ),
-                    ),
-                    CustomSwitch(
+                  ),
+                  //todo this causes problem
+                  CupertinoSwitch(
                       value: _switchValue,
-                      onChanged: (bool val) {
+                      onChanged: (v) {
                         setState(() {
-                          _switchValue = val;
+                          _switchValue = v;
                         });
-                      },
-                    ),
-                  ],
-                ),
+                      }),
+                ],
               ),
-              //********************uppertion: 2 end**********
-              SizedBox(
-                height: consMedPadH,
-              ),
-              //*****************upper Portion 3 start **************
+            ),
+            //********************uppertion: 2 end**********
+            SizedBox(
+              height: consMedPadH,
+            ),
+            //*****************upper Portion 3 start **************
 
-              tabBarWidget(),
-            ],
-          ),
+            Expanded(child: tabBarWidget()),
+          ],
         ),
       ),
     );

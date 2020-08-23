@@ -6,14 +6,23 @@ import 'package:channab/shared/text_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+import 'gallery_pop_up_vm.dart';
+
 class GalleryPopUp extends StatefulWidget {
   @override
   _GalleryPopUpState createState() => _GalleryPopUpState();
 }
 
 class _GalleryPopUpState extends State<GalleryPopUp> {
+  GalleryPopUpVM _galleryPopUpVM;
   var imgProfile;
   var imgFile;
+  int id = 1;//todo this have to be changed
+  @override
+  void initState() {
+    _galleryPopUpVM = GalleryPopUpVM();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -95,6 +104,8 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
                 ),
                 onPressed: () {
                   //todo
+                  _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
+
                 },
               ),
             ),

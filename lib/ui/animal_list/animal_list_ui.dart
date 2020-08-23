@@ -1,8 +1,10 @@
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/animal_list/animal_list_vm.dart';
 import 'package:channab/ui/filter_dialog_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../child.dart';
 
@@ -12,20 +14,7 @@ class AnimalListUI extends StatefulWidget {
 }
 
 class _AnimalListUIState extends State<AnimalListUI> {
-  List<Child> childs = [
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-  ];
+  AnimalListVM _animalListVM;
   List<String> conditions = [
     "Dry",
     "Pregnant",
@@ -40,6 +29,40 @@ class _AnimalListUIState extends State<AnimalListUI> {
     "Milking",
     "None"
   ];
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    String stringValue = prefs.getString('logInToken');
+    return stringValue;
+  }
+
+  List<Child> childs = [
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+    Child("Animal Tag Name", "1 Year 11 Months"),
+  ];
+
+  @override
+  void initState() {
+//    String token = getStringValuesSF();
+
+    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
+
+    //todo token have to be changed
+    _animalListVM = AnimalListVM(token);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

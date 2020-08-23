@@ -25,7 +25,7 @@ class _GalleryWidgetUIState extends State<GalleryWidgetUI> {
           left: consMedPadH, right: consMedPadH, top: consMedPadH),
       child: GridView.builder(
           scrollDirection: Axis.vertical,
-          physics: NeverScrollableScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           itemCount: images.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, crossAxisSpacing: 15.0, mainAxisSpacing: 15.0),

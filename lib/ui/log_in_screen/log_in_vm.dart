@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:channab/core/layers/API.dart';
 import 'package:channab/core/layers/log_in_repos.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInVM {
   static Dio dio;
@@ -14,13 +16,31 @@ class LogInVM {
         "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b";
   }
 
-  getLogInResponse(String mobileNumber, String password) async {
+  getLogInResponse(
+      String mobileNumber, String password, BuildContext context) async {
     var logInResponse =
         await LogInRepos.requestLogIn(dio, mobileNumber, password);
     print(logInResponse);
     var data = json.decode(logInResponse.data);
+
+    //save log in token
+    addStringToSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('logInToken', data.token);
+    }
+
+    if (data.status.toString() == "200") {
+      addStringToSF();
+//      Navigator.push(
+//        context,
+//        MaterialPageRoute(builder: (context) => AnimalListUI()),
+//      );
+    }
+
+    //testing messages
     print(data.message);
-    print(data.status); //200
-    print(data.token); // save to sp utils
+    print(data.status);
+    print(data.token); //
+    return logInResponse;
   }
 }

@@ -30,57 +30,64 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: consMedPadH),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: consSmallPad * 2,
-          ),
-          Container(
-            padding: EdgeInsets.only(left: consSmallPad * 2),
-            child: Text(
-              "Parents",
-              style: captionTextStyle,
-            ),
-          ),
-          SizedBox(
-            height: consMedPadH,
-          ),
-          cardWidget(
-              false, "Animal Tag Name", "assets/images/cow_img.jpeg", "Male"),
-          SizedBox(
-            height: consSmallPad * 2,
-          ),
-          cardWidget(
-              false, "Animal Tag Name", "assets/images/cow_img.jpeg", "Female"),
-          SizedBox(
-            height: consMedPad * 2,
-          ),
-          Container(
-            padding: EdgeInsets.only(left: consSmallPad * 2),
-            child: Text(
-              "Childs",
-              style: captionTextStyle,
-            ),
-          ),
-          SizedBox(
-            height: consSmallPad * 2,
-          ),
-          Container(
-            height: childs.length * 85.0,
-            child: ListView.builder(
-                itemCount: childs.length,
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return cardWidget(true, childs[index].name,
+      padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
+      child: ListView.builder(
+          itemCount: childs.length,
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: consSmallPad * 2,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      padding: EdgeInsets.only(left: consSmallPad * 2),
+                      child: Text(
+                        "Parents",
+                        style: captionTextStyle,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: consMedPadH,
+                  ),
+                  cardWidget(false, "Animal Tag Name",
+                      "assets/images/cow_img.jpeg", "Male"),
+                  SizedBox(
+                    height: consSmallPad * 2,
+                  ),
+                  cardWidget(false, "Animal Tag Name",
+                      "assets/images/cow_img.jpeg", "Female"),
+                  SizedBox(
+                    height: consMedPad * 2,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      padding: EdgeInsets.only(left: consSmallPad * 2),
+                      child: Text(
+                        "Childs",
+                        style: captionTextStyle,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: consSmallPad * 2,
+                  ),
+                  cardWidget(true, childs[index].name,
                       "assets/images/cow_img.jpeg", "Male",
-                      age: childs[index].age);
-                }),
-          )
-        ],
-      ),
+                      age: childs[index].age)
+                ],
+              );
+            }
+            return cardWidget(
+                true, childs[index].name, "assets/images/cow_img.jpeg", "Male",
+                age: childs[index].age);
+          }),
     );
   }
 

@@ -2,10 +2,10 @@ import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../custom_switch.dart';
 
 class AnimalDesUI extends StatefulWidget {
   @override
@@ -202,14 +202,13 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
                         color: channabBackgroundColor,
                       ),
                     ),
-                    CustomSwitch(
-                      value: _switchValue,
-                      onChanged: (bool val) {
-                        setState(() {
-                          _switchValue = val;
-                        });
-                      },
-                    ),
+                    CupertinoSwitch(
+                        value: _switchValue,
+                        onChanged: (v) {
+                          setState(() {
+                            _switchValue = v;
+                          });
+                        }),
                   ],
                 ),
               ),
