@@ -17,7 +17,8 @@ class PopupApiLayer {
     });
 
     //gallery_popup
-    await dio.post("/api/gallery_popup/", data: formData);
+    var res = await dio.post("/api/gallery_popup/", data: formData);
+    return res;
   }
 
   static postAnimalMilking(Dio dio, File mainImage, int animalParticularId,

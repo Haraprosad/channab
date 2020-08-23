@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/image_picker_cropper.dart';
@@ -17,12 +19,13 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
   GalleryPopUpVM _galleryPopUpVM;
   var imgProfile;
   var imgFile;
-  int id = 1;//todo this have to be changed
+  int id = 20; //todo this have to be changed
   @override
   void initState() {
     _galleryPopUpVM = GalleryPopUpVM();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -104,8 +107,11 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
                 ),
                 onPressed: () {
                   //todo
-                  _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
-
+                  var res = _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
+                  var data = json.decode(res.data);
+                  if (data.status == "200") {
+                    Navigator.of(context).pop();
+                  }
                 },
               ),
             ),

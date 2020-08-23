@@ -1,3 +1,4 @@
+import 'package:channab/core/model/animal_list_model.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
@@ -6,8 +7,6 @@ import 'package:channab/ui/filter_dialog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../child.dart';
-
 class AnimalListUI extends StatefulWidget {
   @override
   _AnimalListUIState createState() => _AnimalListUIState();
@@ -15,20 +14,6 @@ class AnimalListUI extends StatefulWidget {
 
 class _AnimalListUIState extends State<AnimalListUI> {
   AnimalListVM _animalListVM;
-  List<String> conditions = [
-    "Dry",
-    "Pregnant",
-    "Milking",
-    "None",
-    "Dry",
-    "Pregnant",
-    "Milking",
-    "None",
-    "Dry",
-    "Pregnant",
-    "Milking",
-    "None"
-  ];
 
   getStringValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,21 +21,6 @@ class _AnimalListUIState extends State<AnimalListUI> {
     String stringValue = prefs.getString('logInToken');
     return stringValue;
   }
-
-  List<Child> childs = [
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-    Child("Animal Tag Name", "1 Year 11 Months"),
-  ];
 
   @override
   void initState() {
@@ -60,6 +30,7 @@ class _AnimalListUIState extends State<AnimalListUI> {
 
     //todo token have to be changed
     _animalListVM = AnimalListVM(token);
+    _animalListVM.getAllData();
     super.initState();
   }
 
@@ -138,19 +109,35 @@ class _AnimalListUIState extends State<AnimalListUI> {
               SizedBox(
                 height: consMedPadH,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: consMedPadH),
-                height: childs.length * 125.0,
-                child: ListView.builder(
-                    itemCount: childs.length,
-                    scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return animalCardWidget(true, childs[index].name,
-                          "assets/images/cow_img.jpeg", "Male", index,
-                          age: childs[index].age);
-                    }),
-              )
+              StreamBuilder<AnimalListModel>(
+                  stream: _animalListVM.getStream.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var model = snapshot.data;
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: consMedPadH),
+                        height: model.allAnimalList.length * 108.0,
+                        child: ListView.builder(
+                            itemCount: model.allAnimalList.length,
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return animalCardWidget(
+                                  true,
+                                  model.allAnimalList[index].animalTag,
+                                  model.allAnimalList[index].image,
+                                  model.allAnimalList[index].gender,
+                                  index,
+                                  model.allAnimalList[index].animalType,
+                                  age:
+                                      "${model.allAnimalList[index].yearResult} year "
+                                      "${model.allAnimalList[index].monthResult}");
+                            }),
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  })
             ],
           ),
         ),
@@ -158,8 +145,8 @@ class _AnimalListUIState extends State<AnimalListUI> {
     );
   }
 
-  animalCardWidget(
-      bool isChild, String title, String img, String gender, int index,
+  animalCardWidget(bool isChild, String title, String img, String gender,
+      int index, String animalCondition,
       {String age}) {
     return Card(
       elevation: 1,
@@ -173,7 +160,14 @@ class _AnimalListUIState extends State<AnimalListUI> {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10), child: Image.asset(img)),
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                  height: 60,
+                  width: 60,
+                  child: Image.network(
+                    img,
+                    fit: BoxFit.fill,
+                  ))),
         ),
         subtitle: isChild
             ? Text(
@@ -189,11 +183,11 @@ class _AnimalListUIState extends State<AnimalListUI> {
           height: 29,
           width: 80,
           decoration: BoxDecoration(
-              color: getButtonColor(conditions[index].toLowerCase()),
+              color: getButtonColor(animalCondition.toLowerCase()),
               borderRadius: BorderRadius.all(Radius.circular(15))),
           child: Center(
               child: Text(
-            conditions[index],
+            animalCondition,
             style: TextStyle(color: Colors.white),
           )),
         ),

@@ -13,12 +13,12 @@ class AnimalListVM {
 
   AnimalListVM(String token) {
     dio = API.getInstance();
-    dio.options.headers["x-api-key"] = token;
+    dio.options.headers["token"] = token;
     getStream = StreamController<AnimalListModel>.broadcast();
   }
 
-  void getAllData(int id) {
-    var response = AnimalListRepos.getAnimalList(dio);
+  void getAllData() async {
+    var response = await AnimalListRepos.getAnimalList(dio);
     var model = AnimalListModel.fromJson(json.decode(response.data));
     getStream.add(model);
 //    List data = [];

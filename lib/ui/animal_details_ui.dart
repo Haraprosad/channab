@@ -6,12 +6,12 @@ import 'package:channab/ui/animal_details_screen/family_tab/family_pop_up.dart';
 import 'package:channab/ui/animal_details_screen/family_tab/family_widget.dart';
 import 'package:channab/ui/animal_details_screen/gallery_tab/gallery_pop_up.dart';
 import 'package:channab/ui/animal_details_screen/gallery_tab/gallery_widget.dart';
-import 'package:channab/ui/animal_details_screen/health_tab/health_pop_up.dart';
 import 'package:channab/ui/animal_details_screen/milking_tab/milking_pop_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import 'animal_details_screen/health_tab/health_pop_up.dart';
 import 'animal_details_screen/health_tab/health_widget.dart';
 import 'animal_details_screen/milking_tab/milking_widget.dart';
 
@@ -429,7 +429,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   //this is the pop up widgets
   getFormWidget() {
     if (seletedTabNumber == 0) {
-      return GalleryPopUp();
+      return HealthPopUp();
     }
     if (seletedTabNumber == 1) {
       return FamilyPopUp();
@@ -438,7 +438,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
       return MilkingPopUp();
     }
     if (seletedTabNumber == 3) {
-      return HealthPopUp();
+      return GalleryPopUp();
     }
   }
 }
