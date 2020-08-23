@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class LoginPage extends StatefulWidget {
+class  LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }

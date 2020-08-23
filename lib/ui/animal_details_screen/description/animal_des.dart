@@ -1,3 +1,4 @@
+import 'package:channab/core/model/AnimalModel.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
@@ -29,6 +30,7 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
 
   @override
   void initState() {
+    //replace hard coading
     int id = 20;
     String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
     _vm = AnimalDetailsDescriptionVM(token);
@@ -253,49 +255,58 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
               SizedBox(
                 height: consMedPadH,
               ),
-              Container(
-                height: 5 * 95.0,
-                child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
+              StreamBuilder<MyAnimalModel>(
+                  stream: _vm.stream.stream,
+                  builder: (ctx, snapshot) {
+                    if (snapshot.hasData) {
+                      var model = snapshot.data.allDescriptionList;
                       return Container(
-                        padding: EdgeInsets.symmetric(horizontal: consMedPadH),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "15 MIN AGO",
-                              style: desPageTimeTextStyle,
-                            ),
-                            SizedBox(
-                              height: consSmallPad * 2,
-                            ),
-                            Text(
-                              "I really don’t get what all the"
-                              " fuss is about. She could never compare to Cindy, "
-                              "Shristy and other famouse models",
-                              style: desPageDescriptionTextStyle,
-                            ),
-                            SizedBox(
-                              height: consSmallPad * 2,
-                            ),
-                            Container(
-                              child: Divider(
-                                thickness: 2,
-                                color: dividerColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: consSmallPad * 2,
-                            ),
-                          ],
-                        ),
+                        height: 5 * 95.0,
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: model.length,
+                            itemBuilder: (context, index) {
+                              var item = model[index];
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: consMedPadH),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      item.createdOn,
+                                      style: desPageTimeTextStyle,
+                                    ),
+                                    SizedBox(
+                                      height: consSmallPad * 2,
+                                    ),
+                                    Text(
+                                      item.description,
+                                      style: desPageDescriptionTextStyle,
+                                    ),
+                                    SizedBox(
+                                      height: consSmallPad * 2,
+                                    ),
+                                    Container(
+                                      child: Divider(
+                                        thickness: 2,
+                                        color: dividerColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: consSmallPad * 2,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
                       );
-                    }),
-              )
+                    } else {
+                      return Container();
+                    }
+                  })
             ],
           ),
         ),

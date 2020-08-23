@@ -1,7 +1,10 @@
+// To parse this JSON data, do
+//
+//     final myModel = myModelFromJson(jsonString);
+
 import 'dart:convert';
 
-MyAnimalModel myModelFromJson(String str) =>
-    MyAnimalModel.fromJson(json.decode(str));
+MyAnimalModel myModelFromJson(String str) => MyAnimalModel.fromJson(json.decode(str));
 
 String myModelToJson(MyAnimalModel data) => json.encode(data.toJson());
 
@@ -22,11 +25,11 @@ class MyAnimalModel {
   });
 
   int status;
-  List<dynamic> allDescriptionList;
+  List<AllDescriptionList> allDescriptionList;
   ProductDetails productDetails;
   List<GallerList> gallerList;
   MilkAllRecord milkAllRecord;
-  List<dynamic> allHealthRecordList;
+  List<AllHealthRecordList> allHealthRecordList;
   List<ChildAlreadySelect> childAlreadySelect;
   List<AllUserCanSelect> allChildsUserCanSelect;
   List<AllUserCanSelect> allFemaleUserCanSelect;
@@ -36,14 +39,16 @@ class MyAnimalModel {
 
   factory MyAnimalModel.fromJson(Map<String, dynamic> json) => MyAnimalModel(
         status: json["status"],
-        allDescriptionList:
-            List<dynamic>.from(json["all_description_list"].map((x) => x)),
+        allDescriptionList: List<AllDescriptionList>.from(
+            json["all_description_list"]
+                .map((x) => AllDescriptionList.fromJson(x))),
         productDetails: ProductDetails.fromJson(json["product_details"]),
         gallerList: List<GallerList>.from(
             json["galler_list"].map((x) => GallerList.fromJson(x))),
         milkAllRecord: MilkAllRecord.fromJson(json["milk_all_record"]),
-        allHealthRecordList:
-            List<dynamic>.from(json["all_health_record_list"].map((x) => x)),
+        allHealthRecordList: List<AllHealthRecordList>.from(
+            json["all_health_record_list"]
+                .map((x) => AllHealthRecordList.fromJson(x))),
         childAlreadySelect: List<ChildAlreadySelect>.from(
             json["child_already_select"]
                 .map((x) => ChildAlreadySelect.fromJson(x))),
@@ -65,12 +70,12 @@ class MyAnimalModel {
   Map<String, dynamic> toJson() => {
         "status": status,
         "all_description_list":
-            List<dynamic>.from(allDescriptionList.map((x) => x)),
+            List<dynamic>.from(allDescriptionList.map((x) => x.toJson())),
         "product_details": productDetails.toJson(),
         "galler_list": List<dynamic>.from(gallerList.map((x) => x.toJson())),
         "milk_all_record": milkAllRecord.toJson(),
         "all_health_record_list":
-            List<dynamic>.from(allHealthRecordList.map((x) => x)),
+            List<dynamic>.from(allHealthRecordList.map((x) => x.toJson())),
         "child_already_select":
             List<dynamic>.from(childAlreadySelect.map((x) => x.toJson())),
         "all_childs_user_can_select":
@@ -102,6 +107,64 @@ class AllUserCanSelect {
   Map<String, dynamic> toJson() => {
         "animal_tag": animalTag,
         "id": id,
+      };
+}
+
+class AllDescriptionList {
+  AllDescriptionList({
+    this.description,
+    this.createdOn,
+    this.id,
+  });
+
+  String description;
+  String createdOn;
+  int id;
+
+  factory AllDescriptionList.fromJson(Map<String, dynamic> json) =>
+      AllDescriptionList(
+        description: json["description"],
+        createdOn: json["created_on"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "description": description,
+        "created_on": createdOn,
+        "id": id,
+      };
+}
+
+class AllHealthRecordList {
+  AllHealthRecordList({
+    this.ago,
+    this.tagName,
+    this.costAmount,
+    this.id,
+    this.textDescription,
+  });
+
+  String ago;
+  String tagName;
+  String costAmount;
+  int id;
+  String textDescription;
+
+  factory AllHealthRecordList.fromJson(Map<String, dynamic> json) =>
+      AllHealthRecordList(
+        ago: json["ago"],
+        tagName: json["tag_name"],
+        costAmount: json["cost_amount"].toString(),
+        id: json["id"],
+        textDescription: json["text_description"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "ago": ago,
+        "tag_name": tagName,
+        "cost_amount": costAmount,
+        "id": id,
+        "text_description": textDescription,
       };
 }
 
@@ -222,18 +285,18 @@ class MilkDataByRow {
     this.createdOn,
   });
 
-  double morningTime;
+  String morningTime;
   int id;
-  double eveningTime;
-  int sumOfOne;
+  String eveningTime;
+  String sumOfOne;
   String createdOn;
 
   factory MilkDataByRow.fromJson(Map<String, dynamic> json) => MilkDataByRow(
-        morningTime: json["morning_time"],
+        morningTime: json["morning_time"].toString(),
         id: json["id"],
-        eveningTime: json["evening_time"],
-        sumOfOne: json["sum_of_one"],
-        createdOn: json["created_on"],
+        eveningTime: json["evening_time"].toString(),
+        sumOfOne: json["sum_of_one"].toString(),
+        createdOn: json["created_on"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

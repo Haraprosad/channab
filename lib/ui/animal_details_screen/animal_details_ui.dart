@@ -13,11 +13,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import 'description/animal_des.dart';
 import 'health_tab/health_pop_up.dart';
 import 'health_tab/health_widget.dart';
 import 'milking_tab/milking_widget.dart';
 
 class AnimalDetailsUI extends StatefulWidget {
+  final int id;
+
+  AnimalDetailsUI(this.id);
+
   @override
   _AnimalDetailsUIState createState() => _AnimalDetailsUIState();
 }
@@ -25,6 +30,7 @@ class AnimalDetailsUI extends StatefulWidget {
 class _AnimalDetailsUIState extends State<AnimalDetailsUI>
     with SingleTickerProviderStateMixin {
   AnimalDetailsVM _animalDetailsVM;
+
   //todo this have to be changed*****1
   String nameTag = "CS108";
   String imgUrl = "assets/images/cow_img.jpeg";
@@ -36,9 +42,11 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   var gender = "Male";
 
   var _switchValue = true;
+
   //todo******************************
   int seletedTabNumber = 0;
   TabController _tabController;
+
   @override
   void initState() {
     //todo this have to be changed
@@ -234,138 +242,147 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                           padding:
                               EdgeInsets.symmetric(horizontal: consMedPadH),
                           height: 105,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 39 * 2.0,
-                                      width: 39 * 2.0,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            left: 0,
-                                            right: 0,
-                                            top: 0,
-                                            bottom: 0,
-                                            child: CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  model.productDetails
-                                                      .productImage),
-                                              radius: 36,
+                          child: InkWell(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 39 * 2.0,
+                                        width: 39 * 2.0,
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              left: 0,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0,
+                                              child: CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    model.productDetails
+                                                        .productImage),
+                                                radius: 36,
+                                              ),
                                             ),
-                                          ),
-                                          Positioned(
-                                            right: 10,
-                                            bottom: 0,
-                                            child: CircleAvatar(
-                                              backgroundColor:
-                                                  channabBackgroundColor,
+                                            Positioned(
+                                              right: 10,
+                                              bottom: 0,
                                               child: CircleAvatar(
                                                 backgroundColor:
-                                                    buttonBackColor,
-                                                radius: 8,
+                                                    channabBackgroundColor,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      buttonBackColor,
+                                                  radius: 8,
+                                                ),
+                                                radius: 10,
                                               ),
-                                              radius: 10,
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: consSmallPad,
-                                    ),
-                                    Text(
-                                      model.productDetails.animalTag,
-                                      style: tagNameTextStyle,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: consSmallPad,
+                                      ),
+                                      Text(
+                                        model.productDetails.animalTag,
+                                        style: tagNameTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 3,
                                 ),
-                                flex: 3,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.medPadH,
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 38,
-                                      padding:
-                                          EdgeInsets.all(consSmallPad * 1.5),
-                                      decoration: BoxDecoration(
-                                          color: buttonBackColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(18))),
-                                      child: Center(
-                                          child: Text(
-                                        "Age : ${model.productDetails.ageInYear} Year",
-                                        style: btnTextStyle,
-                                      )),
-                                    ),
-                                    Container(
-                                      height: 38,
-                                      padding:
-                                          EdgeInsets.all(consSmallPad * 1.5),
-                                      decoration: BoxDecoration(
-                                          color: buttonBackColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(18))),
-                                      child: Center(
-                                          child: Text(
-                                        "${model.productDetails.animalBreed}",
-                                        style: btnTextStyle,
-                                      )),
-                                    )
-                                  ],
+                                SizedBox(
+                                  width: SizeConfig.medPadH,
                                 ),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.medPad,
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 38,
-                                      padding:
-                                          EdgeInsets.all(consSmallPad * 1.5),
-                                      decoration: BoxDecoration(
-                                          color: buttonBackColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(18))),
-                                      child: Center(
-                                          child: Text(
-                                        "${model.productDetails.animalGender}",
-                                        style: btnTextStyle,
-                                      )),
-                                    ),
-                                    Container(
-                                      height: 38,
-                                      padding:
-                                          EdgeInsets.all(consSmallPad * 1.5),
-                                      decoration: BoxDecoration(
-                                          color: buttonBackColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(18))),
-                                      child: Center(
-                                          child: Text(
-                                        "${model.productDetails.animalType}",
-                                        style: btnTextStyle,
-                                      )),
-                                    )
-                                  ],
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 38,
+                                        padding:
+                                            EdgeInsets.all(consSmallPad * 1.5),
+                                        decoration: BoxDecoration(
+                                            color: buttonBackColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18))),
+                                        child: Center(
+                                            child: Text(
+                                          "Age : ${model.productDetails.ageInYear} Year",
+                                          style: btnTextStyle,
+                                        )),
+                                      ),
+                                      Container(
+                                        height: 38,
+                                        padding:
+                                            EdgeInsets.all(consSmallPad * 1.5),
+                                        decoration: BoxDecoration(
+                                            color: buttonBackColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18))),
+                                        child: Center(
+                                            child: Text(
+                                          "${model.productDetails.animalBreed}",
+                                          style: btnTextStyle,
+                                        )),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: SizeConfig.medPad,
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 38,
+                                        padding:
+                                            EdgeInsets.all(consSmallPad * 1.5),
+                                        decoration: BoxDecoration(
+                                            color: buttonBackColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18))),
+                                        child: Center(
+                                            child: Text(
+                                          "${model.productDetails.animalGender}",
+                                          style: btnTextStyle,
+                                        )),
+                                      ),
+                                      Container(
+                                        height: 38,
+                                        padding:
+                                            EdgeInsets.all(consSmallPad * 1.5),
+                                        decoration: BoxDecoration(
+                                            color: buttonBackColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18))),
+                                        child: Center(
+                                            child: Text(
+                                          "${model.productDetails.animalType}",
+                                          style: btnTextStyle,
+                                        )),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnimalDesUI()),
+                              );
+                            },
                           ),
                         ),
                         //********************Upper Portion : 1 end**********

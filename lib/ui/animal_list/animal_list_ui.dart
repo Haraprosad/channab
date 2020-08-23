@@ -134,7 +134,8 @@ class _AnimalListUIState extends State<AnimalListUI> {
                                 Navigator.push(
                                   ctx,
                                   MaterialPageRoute(
-                                      builder: (context) => AnimalDetailsUI()),
+                                      builder: (context) =>
+                                          AnimalDetailsUI(id)),
                                 );
                               },
                               child: animalCardWidget(
