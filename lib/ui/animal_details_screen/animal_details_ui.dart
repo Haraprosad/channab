@@ -196,8 +196,8 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
             controller: _tabController,
             children: [
               HealthWidgetUI(),
-              FamilyWidgetUI(),
-              MilkingWidgetUI(),
+              FamilyWidgetUI(_animalDetailsVM),
+              MilkingWidgetUI(_animalDetailsVM),
               GalleryWidgetUI(_animalDetailsVM),
             ],
           ),

@@ -21,26 +21,14 @@ class LogInVM {
     var logInResponse =
         await LogInRepos.requestLogIn(dio, mobileNumber, password);
     print(logInResponse);
+
     var data = json.decode(logInResponse.data);
 
-    //save log in token
-    addStringToSF() async {
+    if (data["status"].toString() == "200") {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('logInToken', data.token);
+      prefs.setString('logInToken', data['token']);
     }
 
-    if (data.status.toString() == "200") {
-      addStringToSF();
-//      Navigator.push(
-//        context,
-//        MaterialPageRoute(builder: (context) => AnimalListUI()),
-//      );
-    }
-
-    //testing messages
-    print(data.message);
-    print(data.status);
-    print(data.token); //
     return logInResponse;
   }
 }

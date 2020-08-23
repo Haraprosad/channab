@@ -10,6 +10,8 @@ class AnimalDetailsVM {
   static Dio dio;
 
   StreamController<MyAnimalModel> stream;
+  MyAnimalModel animalModel;
+  var productID = 0;
 
   AnimalDetailsVM(String token) {
     dio = API.getInstance();
@@ -18,11 +20,55 @@ class AnimalDetailsVM {
   }
 
   void getAllData(int id) async {
+    productID = id;
     var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var model = MyAnimalModel.fromJson(json.decode(response.data));
     stream.add(model);
-//    List data = [];
-//    data.map((e) => e.name == "");
+    animalModel = model;
+  }
+
+  Future<MyAnimalModel> getGalleryData() async {
+    if (animalModel == null) {
+      var response =
+          await ViewParticularAnimal.getParticularAnimal(dio, productID);
+      var model = MyAnimalModel.fromJson(json.decode(response.data));
+      animalModel = model;
+      return animalModel;
+    }
+    return animalModel;
+  }
+
+  Future<MyAnimalModel> getMilkingData() async {
+    if (animalModel == null) {
+      var response =
+          await ViewParticularAnimal.getParticularAnimal(dio, productID);
+      var model = MyAnimalModel.fromJson(json.decode(response.data));
+      animalModel = model;
+      return animalModel;
+    }
+    return animalModel;
+  }
+
+  Future<MyAnimalModel> getFamilyData() async {
+    if (animalModel == null) {
+      var response =
+          await ViewParticularAnimal.getParticularAnimal(dio, productID);
+      var model = MyAnimalModel.fromJson(json.decode(response.data));
+      animalModel = model;
+      return animalModel;
+    }
+    return animalModel;
+  }
+
+  Future<MyAnimalModel> getHealthData() async {
+    if (animalModel == null) {
+      var response =
+          await ViewParticularAnimal.getParticularAnimal(dio, productID);
+      var model = MyAnimalModel.fromJson(json.decode(response.data));
+      animalModel = model;
+      return animalModel;
+    }
+    return animalModel;
   }
 
   void dispose() {

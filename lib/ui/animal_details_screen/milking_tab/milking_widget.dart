@@ -1,11 +1,16 @@
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/animal_details_screen/viewmodel/AnimaldetailsVM.dart';
 import 'package:channab/ui/milk_count.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MilkingWidgetUI extends StatefulWidget {
+  final AnimalDetailsVM _animalDetailsVM;
+
+  MilkingWidgetUI(this._animalDetailsVM);
+
   @override
   _MilkingWidgetUIState createState() => _MilkingWidgetUIState();
 }
@@ -21,6 +26,7 @@ class _MilkingWidgetUIState extends State<MilkingWidgetUI> {
     MilkCount("26 Jun 2020", "10 Liter", "8 Liter", "18 Liter"),
     MilkCount("26 Jun 2020", "10 Liter", "8 Liter", "18 Liter"),
   ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

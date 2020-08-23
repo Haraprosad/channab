@@ -4,8 +4,10 @@ import 'package:channab/ui/animal_details_screen/viewmodel/AnimaldetailsVM.dart'
 import 'package:flutter/material.dart';
 
 class GalleryWidgetUI extends StatefulWidget {
-  AnimalDetailsVM _animalDetailsVM;
+  final AnimalDetailsVM _animalDetailsVM;
+
   GalleryWidgetUI(this._animalDetailsVM);
+
   @override
   _GalleryWidgetUIState createState() => _GalleryWidgetUIState();
 }
@@ -23,9 +25,15 @@ class _GalleryWidgetUIState extends State<GalleryWidgetUI> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return StreamBuilder<MyAnimalModel>(
-        stream: widget._animalDetailsVM.stream.stream,
+    print(widget._animalDetailsVM);
+    return FutureBuilder<MyAnimalModel>(
+        future: widget._animalDetailsVM.getGalleryData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var model = snapshot.data.gallerList;

@@ -1,9 +1,14 @@
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/text_styles.dart';
+import 'package:channab/ui/animal_details_screen/viewmodel/AnimaldetailsVM.dart';
 import 'package:flutter/material.dart';
 
 class HealthWidgetUI extends StatefulWidget {
+  final AnimalDetailsVM _animalDetailsVM;
+
+  HealthWidgetUI(this._animalDetailsVM);
+
   @override
   _HealthWidgetUIState createState() => _HealthWidgetUIState();
 }
