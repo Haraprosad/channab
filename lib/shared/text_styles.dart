@@ -16,7 +16,7 @@ final TextStyle btnTextStyle = TextStyle(
 final TextStyle tagNameTextStyle = TextStyle(
     color: Color.fromRGBO(42, 60, 91, 1),
     fontFamily: fontFamilyRobotoMedium,
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: FontWeight.normal,
     height: 1.1666666666666667);
 

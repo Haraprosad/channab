@@ -198,7 +198,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
               HealthWidgetUI(),
               FamilyWidgetUI(),
               MilkingWidgetUI(),
-              GalleryWidgetUI(),
+              GalleryWidgetUI(_animalDetailsVM),
             ],
           ),
         ),
@@ -254,7 +254,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                                               backgroundImage: NetworkImage(
                                                   model.productDetails
                                                       .productImage),
-                                              radius: 38,
+                                              radius: 36,
                                             ),
                                           ),
                                           Positioned(
@@ -283,7 +283,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                                     ),
                                   ],
                                 ),
-                                flex: 2,
+                                flex: 3,
                               ),
                               SizedBox(
                                 width: SizeConfig.medPadH,

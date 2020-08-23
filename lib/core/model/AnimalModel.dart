@@ -224,7 +224,7 @@ class MilkDataByRow {
 
   double morningTime;
   int id;
-  int eveningTime;
+  double eveningTime;
   int sumOfOne;
   String createdOn;
 

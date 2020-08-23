@@ -107,11 +107,7 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
                 ),
                 onPressed: () {
                   //todo
-                  var res = _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
-                  var data = json.decode(res.data);
-                  if (data.status == "200") {
-                    Navigator.of(context).pop();
-                  }
+                  getGallerySave();
                 },
               ),
             ),
@@ -140,6 +136,14 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
       setState(() {
         imgProfile = byteImage;
       });
+    }
+  }
+
+  void getGallerySave() async {
+    var res = await _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
+    var data = json.decode(res.data);
+    if (data["status"].toString() == "200") {
+      Navigator.of(context).pop();
     }
   }
 }
