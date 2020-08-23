@@ -13,17 +13,16 @@ class AnimalDetailsVM {
 
   AnimalDetailsVM(String token) {
     dio = API.getInstance();
-    dio.options.headers["x-api-key"] = token;
+    dio.options.headers["token"] = token;
     stream = StreamController<MyAnimalModel>.broadcast();
   }
 
-  void getAllData(int id) {
-    var response = ViewParticularAnimal.getParticularAnimal(dio, id);
+  void getAllData(int id) async {
+    var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var model = MyAnimalModel.fromJson(json.decode(response.data));
     stream.add(model);
-    List data = [];
-    data.map((e) => e.name == "");
-
+//    List data = [];
+//    data.map((e) => e.name == "");
   }
 
   void dispose() {
