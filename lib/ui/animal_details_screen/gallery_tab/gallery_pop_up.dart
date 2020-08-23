@@ -11,6 +11,11 @@ import 'package:flutter/material.dart';
 import 'gallery_pop_up_vm.dart';
 
 class GalleryPopUp extends StatefulWidget {
+  final String id;
+  final String token;
+
+  GalleryPopUp(this.id, this.token);
+
   @override
   _GalleryPopUpState createState() => _GalleryPopUpState();
 }
@@ -19,7 +24,7 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
   GalleryPopUpVM _galleryPopUpVM;
   var imgProfile;
   var imgFile;
-  int id = 20; //todo this have to be changed
+
   @override
   void initState() {
     _galleryPopUpVM = GalleryPopUpVM();
@@ -140,7 +145,7 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
   }
 
   void getGallerySave() async {
-    var res = await _galleryPopUpVM.getGalleryPopResponse(imgFile, id);
+    var res = await _galleryPopUpVM.getGalleryPopResponse(imgFile, widget.id);
     var data = json.decode(res.data);
     if (data["status"].toString() == "200") {
       Navigator.of(context).pop();

@@ -9,7 +9,7 @@ class PopupApiLayer {
     return response;
   }
 
-  static postSaveGallery(Dio dio, File mainImage, int id) async {
+  static postSaveGallery(Dio dio, File mainImage, String id) async {
     FormData formData = new FormData.fromMap({
       "animal_particular_id": id,
       "main_image":
@@ -21,8 +21,8 @@ class PopupApiLayer {
     return res;
   }
 
-  static postAnimalMilking(Dio dio, File mainImage, int animalParticularId,
-      int morningTime, int eveningTime) async {
+  static postAnimalMilking(Dio dio, String animalParticularId,
+      String morningTime, String eveningTime) async {
     FormData formData = new FormData.fromMap({
       "animal_particular_id": animalParticularId,
       "morning_time": morningTime,

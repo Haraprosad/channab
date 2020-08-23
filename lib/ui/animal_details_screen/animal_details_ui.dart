@@ -20,8 +20,9 @@ import 'milking_tab/milking_widget.dart';
 
 class AnimalDetailsUI extends StatefulWidget {
   final int id;
+  final String token;
 
-  AnimalDetailsUI(this.id);
+  AnimalDetailsUI(this.id, this.token);
 
   @override
   _AnimalDetailsUIState createState() => _AnimalDetailsUIState();
@@ -485,13 +486,13 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
       return HealthPopUp();
     }
     if (seletedTabNumber == 1) {
-      return FamilyPopUp();
+      return FamilyPopUp(widget.id.toString(), widget.token);
     }
     if (seletedTabNumber == 2) {
-      return MilkingPopUp();
+      return MilkingPopUp(widget.id.toString(), widget.token);
     }
     if (seletedTabNumber == 3) {
-      return GalleryPopUp();
+      return GalleryPopUp(widget.id.toString(), widget.token);
     }
   }
 }

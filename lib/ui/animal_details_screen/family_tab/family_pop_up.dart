@@ -5,6 +5,11 @@ import 'package:channab/shared/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class FamilyPopUp extends StatefulWidget {
+  final String id;
+  final String token;
+
+  FamilyPopUp(this.id, this.token);
+
   @override
   _FamilyPopUpState createState() => _FamilyPopUpState();
 }
@@ -19,6 +24,7 @@ class _FamilyPopUpState extends State<FamilyPopUp> {
     "Ladakh Market",
     "Jhany Market"
   ];
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -201,7 +207,7 @@ class _FamilyPopUpState extends State<FamilyPopUp> {
                         fontFamily: fontFamilyRobotoMedium),
                   ),
                   onPressed: () {
-                    //todo
+                    sendRequest();
                   },
                 ),
               ),
@@ -214,5 +220,19 @@ class _FamilyPopUpState extends State<FamilyPopUp> {
         ),
       ),
     );
+  }
+
+  void sendRequest() async {
+    //no api provided
+//    var dio = API.getInstance();
+//    dio.options.headers["token"] = widget.token;
+//
+//    var res = PopupApiLayer.(
+//        dio, widget.id, morningMilk, eveningMilk);
+//
+//    var data = json.decode(res.data);
+//    if (data["status"].toString() == "200") {
+//      Navigator.of(context).pop();
+//    }
   }
 }

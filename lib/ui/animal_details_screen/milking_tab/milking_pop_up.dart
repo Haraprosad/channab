@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:channab/core/layers/API.dart';
+import 'package:channab/core/layers/Popup_API_Layers.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
@@ -5,6 +9,11 @@ import 'package:channab/shared/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class MilkingPopUp extends StatefulWidget {
+  final String id;
+  final String token;
+
+  MilkingPopUp(this.id, this.token);
+
   @override
   _MilkingPopUpState createState() => _MilkingPopUpState();
 }
@@ -12,6 +21,7 @@ class MilkingPopUp extends StatefulWidget {
 class _MilkingPopUpState extends State<MilkingPopUp> {
   String morningMilk;
   String eveningMilk;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -115,7 +125,7 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
                       fontFamily: fontFamilyRobotoMedium),
                 ),
                 onPressed: () {
-                  //todo
+                  sendRequest();
                 },
               ),
             ),
@@ -127,5 +137,18 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
         ],
       ),
     );
+  }
+
+  void sendRequest() async {
+    var dio = API.getInstance();
+    dio.options.headers["token"] = widget.token;
+
+    var res = PopupApiLayer.postAnimalMilking(
+        dio, widget.id, morningMilk, eveningMilk);
+
+    var data = json.decode(res.data);
+    if (data["status"].toString() == "200") {
+      Navigator.of(context).pop();
+    }
   }
 }
