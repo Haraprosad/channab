@@ -191,11 +191,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                             Positioned(
                               child: TextFormField(
                                 decoration: new InputDecoration(
-                                  hintText: "DOB",
-                                  counterText: (selectedDate != null)
-                                      ? "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"
-                                      : "DOB",
-                                  labelText: (selectedDate != null)
+                                  prefixText: (selectedDate != null)
                                       ? "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"
                                       : "DOB",
                                   contentPadding: EdgeInsets.only(
@@ -364,19 +360,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                                   (selectedDate != null) &&
                                   selectedCategoryName != null &&
                                   selectedGender != null) {
-                                Response res =
-                                    _animalInfoUpVM.getInfoUpResponse(
-                                        animalTag,
-                                        selectedCategoryName,
-                                        selectedGender,
-                                        selectedDate,
-                                        imgFile);
-                                _scaffoldKey.currentState.showSnackBar(
-                                    getSnackBar(res.statusMessage));
-                                var data = json.decode(res.data);
-                                if (data["status"].toString() == "200") {
-                                  Navigator.of(context).pop();
-                                }
+                                getResponse();
                               } else {
                                 // Find the Scaffold in the widget tree and use
                                 // it to show a SnackBar.
@@ -434,6 +418,16 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
       setState(() {
         imgProfile = byteImage;
       });
+    }
+  }
+
+  void getResponse() async {
+    Response res = await _animalInfoUpVM.getInfoUpResponse(
+        animalTag, selectedCategoryName, selectedGender, selectedDate, imgFile);
+    _scaffoldKey.currentState.showSnackBar(getSnackBar(res.statusMessage));
+    var data = json.decode(res.data);
+    if (data["status"].toString() == "200") {
+      Navigator.of(context).pop();
     }
   }
 }

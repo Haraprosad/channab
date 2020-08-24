@@ -145,11 +145,21 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
     var dio = API.getInstance();
     dio.options.headers["token"] = widget.token;
 
-    var res = PopupApiLayer.postAnimalMilking(
+    var res = await PopupApiLayer.postAnimalMilking(
         dio, widget.id, morningMilk, eveningMilk);
+    print(res);
 
     var data = json.decode(res.data);
     if (data["status"].toString() == "200") {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Your Milking data Added Successfully!",
+            style: TextStyle(color: Colors.red),
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
       Navigator.of(context).pop();
     }
   }
