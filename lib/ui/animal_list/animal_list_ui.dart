@@ -106,13 +106,7 @@ class _AnimalListUIState extends State<AnimalListUI> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  FarmAnimalListUpUI(widget.token),
-                            ),
-                          );
+                          addAnimal(context);
                         },
                         child: Icon(
                           Icons.add,
@@ -243,5 +237,19 @@ class _AnimalListUIState extends State<AnimalListUI> {
           return FilterPageDialog();
         },
         fullscreenDialog: true));
+  }
+
+  void addAnimal(BuildContext context) async {
+    var res = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            FarmAnimalListUpUI(widget.token),
+      ),
+    );
+
+    if (res == true) {
+      _animalListVM.getAllData();
+    }
   }
 }

@@ -432,10 +432,11 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
   void getResponse() async {
     Response res = await _animalInfoUpVM.getInfoUpResponse(
         animalTag, selectedCategoryName, selectedGender, selectedDate, imgFile);
-    _scaffoldKey.currentState.showSnackBar(getSnackBar(res.statusMessage));
+
     var data = json.decode(res.data);
     if (data["status"].toString() == "200") {
-      Navigator.of(context).pop();
+      _scaffoldKey.currentState.showSnackBar(getSnackBar(data["message"]));
+      Navigator.of(context).pop(true);
     }
   }
 }
