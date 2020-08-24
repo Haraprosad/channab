@@ -30,7 +30,8 @@ class PopupApiLayer {
     });
 
     //gallery_popup
-    await dio.post("/api/milking_popup/", data: formData);
+    var res = await dio.post("/api/milking_popup/", data: formData);
+    return res;
   }
 
   static postDescription(Dio dio, File mainImage, int id, String des) async {
