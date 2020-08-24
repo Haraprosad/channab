@@ -32,7 +32,6 @@ class LogInVM {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('logInToken', data['token']);
     }
-
     loginSatus.add(data['token']);
 
     return data;
@@ -44,6 +43,5 @@ class LogInVM {
     loginSatus.close();
   }
 }
-
 
 class LoginStatus {}

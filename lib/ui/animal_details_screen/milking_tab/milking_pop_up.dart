@@ -57,6 +57,7 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
           Container(
             height: 45.0,
             child: TextFormField(
+              keyboardType: TextInputType.number,
               onChanged: (v) {
                 //todo
                 morningMilk = v;
@@ -91,6 +92,7 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
           Container(
             height: 45.0,
             child: TextFormField(
+              keyboardType: TextInputType.number,
               onChanged: (v) {
                 //todo
                 eveningMilk = v;

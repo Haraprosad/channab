@@ -141,12 +141,12 @@ class _AnimalListUIState extends State<AnimalListUI> {
                             return InkWell(
                               onTap: () {
                                 //now hardcoded to show the demo
-                                var id = 20;
                                 Navigator.push(
                                   ctx,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          AnimalDetailsUI(id, widget.token)),
+                                      builder: (context) => AnimalDetailsUI(
+                                          model.allAnimalList[index].id,
+                                          widget.token)),
                                 );
                               },
                               child: animalCardWidget(

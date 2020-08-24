@@ -340,18 +340,7 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (login) {
-        var ouput =
-            await _logInVM.getLogInResponse(mobileNumber, password, context);
-        //todo notify error
-//        Scaffold.of(context).showSnackBar(
-//          SnackBar(
-//            content: Text(
-//              ouput,
-//              style: TextStyle(color: Colors.red),
-//            ),
-//            behavior: SnackBarBehavior.floating,
-//          ),
-//        );
+        _logInVM.getLogInResponse(mobileNumber, password, context);
       }
     } else {
       Scaffold.of(context).showSnackBar(
@@ -389,4 +378,17 @@ class _LoginPageState extends State<LoginPage> {
 
     await pr.show();
   }
+}
+
+//snack bar message showing
+getSnackBar(String message) {
+  return SnackBar(
+    content: Text(message),
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
 }

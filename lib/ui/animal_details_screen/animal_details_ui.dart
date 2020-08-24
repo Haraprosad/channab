@@ -47,14 +47,12 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   //todo******************************
   int seletedTabNumber = 0;
   TabController _tabController;
-
+  //for getting token
   @override
   void initState() {
-    //todo this have to be changed
-    int id = 20;
-    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
-    _animalDetailsVM = AnimalDetailsVM(token);
-    _animalDetailsVM.getAllData(id);
+//    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
+    _animalDetailsVM = AnimalDetailsVM(widget.token);
+    _animalDetailsVM.getAllData(widget.id);
     _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
