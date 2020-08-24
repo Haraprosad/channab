@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/image_picker_cropper.dart';
@@ -190,6 +192,9 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                               child: TextFormField(
                                 decoration: new InputDecoration(
                                   hintText: "DOB",
+                                  counterText: (selectedDate != null)
+                                      ? "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"
+                                      : "DOB",
                                   labelText: (selectedDate != null)
                                       ? "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"
                                       : "DOB",
@@ -368,6 +373,10 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                                         imgFile);
                                 _scaffoldKey.currentState.showSnackBar(
                                     getSnackBar(res.statusMessage));
+                                var data = json.decode(res.data);
+                                if (data["status"].toString() == "200") {
+                                  Navigator.of(context).pop();
+                                }
                               } else {
                                 // Find the Scaffold in the widget tree and use
                                 // it to show a SnackBar.
