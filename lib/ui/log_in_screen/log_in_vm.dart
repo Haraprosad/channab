@@ -31,8 +31,9 @@ class LogInVM {
     if (data["status"].toString() == "200") {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('logInToken', data['token']);
+
+      loginSatus.add(data['token']);
     }
-    loginSatus.add(data['token']);
 
     return data;
   }

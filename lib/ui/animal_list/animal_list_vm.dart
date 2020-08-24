@@ -21,8 +21,6 @@ class AnimalListVM {
     var response = await AnimalListRepos.getAnimalList(dio);
     var model = AnimalListModel.fromJson(json.decode(response.data));
     getStream.add(model);
-//    List data = [];
-//    data.map((e) => e.name == "");
   }
 
   void dispose() {

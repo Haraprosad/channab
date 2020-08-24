@@ -340,7 +340,20 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (login) {
-        _logInVM.getLogInResponse(mobileNumber, password, context);
+        var res =
+            await _logInVM.getLogInResponse(mobileNumber, password, context);
+
+        if (res["status"].toString() != "200") {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                res['message'],
+                style: TextStyle(color: Colors.red),
+              ),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
     } else {
       Scaffold.of(context).showSnackBar(

@@ -9,6 +9,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class FarmAnimalListUpUI extends StatefulWidget {
+  final String token;
+
+  FarmAnimalListUpUI(this.token);
+
   @override
   _FarmAnimalListUpUIState createState() => _FarmAnimalListUpUIState();
 }
@@ -18,6 +22,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var imgProfile;
   var imgFile;
+
   //madis and category
   List<String> categoriesName = [
     "Cow",
@@ -31,6 +36,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
   String selectedCategoryName = "Cow";
   List<String> animalGender = ["Male", "Female"];
   String selectedGender = "Male";
+
   //date
   DateTime selectedDate;
 
@@ -48,7 +54,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
 
   @override
   void initState() {
-    _animalInfoUpVM = AnimalInfoUpVM();
+    _animalInfoUpVM = AnimalInfoUpVM(widget.token);
     super.initState();
   }
 
@@ -400,6 +406,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
         selectedDate = picked;
       });
   }
+
   //*************************************************
 //upload image
 

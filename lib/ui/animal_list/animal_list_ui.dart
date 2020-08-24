@@ -109,7 +109,8 @@ class _AnimalListUIState extends State<AnimalListUI> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FarmAnimalListUpUI(),
+                              builder: (context) =>
+                                  FarmAnimalListUpUI(widget.token),
                             ),
                           );
                         },
