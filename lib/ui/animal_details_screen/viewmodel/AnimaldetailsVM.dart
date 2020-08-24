@@ -21,18 +21,27 @@ class AnimalDetailsVM {
     stream = StreamController<MyAnimalModel>.broadcast();
   }
 
-  void getAllData(int id) async {
+  void getAllData(int id, token) async {
     productID = id;
     isCalled = true;
     var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var decoded = json.decode(response.data);
-    var female = decoded["female_parents_of_animals"];
 
     var model = MyAnimalModel.fromJson(decoded);
     print(response);
     stream.add(model);
     animalModel = model;
     isCalled = false;
+  }
+
+  void requestUpdate() async {
+    var response =
+        await ViewParticularAnimal.getParticularAnimal(dio, productID);
+    var decoded = json.decode(response.data);
+
+    var model = MyAnimalModel.fromJson(decoded);
+    print(response);
+    stream.add(model);
   }
 
   Future<MyAnimalModel> getGalleryData() async {

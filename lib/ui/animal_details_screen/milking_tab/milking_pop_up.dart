@@ -151,7 +151,7 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
 
     var data = json.decode(res.data);
     if (data["status"].toString() == "200") {
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     }
   }
 }

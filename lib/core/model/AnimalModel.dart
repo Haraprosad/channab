@@ -351,7 +351,7 @@ class ProductDetails {
         animalType: json["animal_type"],
         animalBreed: json["animal_breed"],
         costPurchase: json["cost_purchase"],
-        dateOfPurchase: DateTime.parse(json["date_of_purchase"]),
+        dateOfPurchase: json["date_of_purchase"] != null ? DateTime.parse(json["date_of_purchase"]) : DateTime.now(),
         productImage: json["product_image"],
       );
 

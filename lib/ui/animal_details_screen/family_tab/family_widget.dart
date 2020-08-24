@@ -39,6 +39,19 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
     return FutureBuilder<MyAnimalModel>(
         future: widget._animalDetailsVM.getFamilyData(),
         builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<AllUserCanSelect> childList =
+                snapshot.data.allChildsUserCanSelect;
+            var maleParent = snapshot.data.maleParentsAnimal;
+            var femaleParent = snapshot.data.femaleParentsOfAnimals;
+
+            if (childList.isNotEmpty) {
+              //regular view
+            } else {
+              //container no data
+            }
+          }
+
           var childList = snapshot.data.allChildsUserCanSelect;
           var maleParent = snapshot.data.maleParentsAnimal;
           var femaleParent = snapshot.data.femaleParentsOfAnimals;

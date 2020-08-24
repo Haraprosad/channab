@@ -52,7 +52,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   @override
   void initState() {
     _animalDetailsVM = AnimalDetailsVM(widget.token);
-    _animalDetailsVM.getAllData(widget.id);
+    _animalDetailsVM.getAllData(widget.id, widget.token);
     _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
@@ -405,31 +405,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                                   ),
                                 ),
                                 onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    child: AlertDialog(
-                                      content: Stack(
-                                        overflow: Overflow.visible,
-                                        children: <Widget>[
-                                          Positioned(
-                                            right: -40.0,
-                                            top: -40.0,
-                                            child: InkResponse(
-                                              onTap: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: CircleAvatar(
-                                                child: Icon(Icons.close),
-                                                backgroundColor: Colors.red,
-                                              ),
-                                            ),
-                                          ),
-                                          getFormWidget(),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                  print("On tap is pressed");
+                                  showPopupDialog();
                                 },
                               ),
                               CircleAvatar(
@@ -497,6 +473,38 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
     }
     if (seletedTabNumber == 3) {
       return GalleryPopUp(widget.id.toString(), widget.token);
+    }
+  }
+
+  void showPopupDialog() async {
+    bool res = await showDialog(
+      context: context,
+      child: AlertDialog(
+        content: Stack(
+          overflow: Overflow.visible,
+          children: <Widget>[
+            Positioned(
+              right: -40.0,
+              top: -40.0,
+              child: InkResponse(
+                onTap: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: CircleAvatar(
+                  child: Icon(Icons.close),
+                  backgroundColor: Colors.red,
+                ),
+              ),
+            ),
+            getFormWidget(),
+          ],
+        ),
+      ),
+    );
+    print("On tap is pressed");
+
+    if (res) {
+      _animalDetailsVM.requestUpdate();
     }
   }
 }

@@ -148,7 +148,7 @@ class _GalleryPopUpState extends State<GalleryPopUp> {
     var res = await _galleryPopUpVM.getGalleryPopResponse(imgFile, widget.id);
     var data = json.decode(res.data);
     if (data["status"].toString() == "200") {
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     }
   }
 }
