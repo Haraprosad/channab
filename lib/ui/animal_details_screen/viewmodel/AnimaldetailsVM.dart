@@ -12,24 +12,35 @@ class AnimalDetailsVM {
   StreamController<MyAnimalModel> stream;
   MyAnimalModel animalModel;
   var productID = 0;
+  bool isCalled = false;
 
   AnimalDetailsVM(String token) {
     dio = API.getInstance();
-    dio.options.headers["token"] = token;
+    String token1 = "50a67c112aff02f32cfefd52c242933b727d28bd";
+    dio.options.headers["token"] = token1;
     stream = StreamController<MyAnimalModel>.broadcast();
   }
 
   void getAllData(int id) async {
     productID = id;
+    isCalled = true;
     var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
-    var model = MyAnimalModel.fromJson(json.decode(response.data));
+    var decoded = json.decode(response.data);
+    var female = decoded["female_parents_of_animals"];
+
+    var s = female != 0;
+
+    var val = female.value;
+
+    var model = MyAnimalModel.fromJson(decoded);
     print(response);
     stream.add(model);
     animalModel = model;
+    isCalled = false;
   }
 
   Future<MyAnimalModel> getGalleryData() async {
-    if (animalModel == null) {
+    if (animalModel == null && !isCalled) {
       var response =
           await ViewParticularAnimal.getParticularAnimal(dio, productID);
       var model = MyAnimalModel.fromJson(json.decode(response.data));
@@ -40,18 +51,22 @@ class AnimalDetailsVM {
   }
 
   Future<MyAnimalModel> getMilkingData() async {
-    if (animalModel == null) {
+    if (animalModel == null && !isCalled) {
       var response =
           await ViewParticularAnimal.getParticularAnimal(dio, productID);
-      var model = MyAnimalModel.fromJson(json.decode(response.data));
+      var decoded = json.decode(response.data);
+
+      var model = MyAnimalModel.fromJson(decoded);
+
       animalModel = model;
+
       return animalModel;
     }
     return animalModel;
   }
 
   Future<MyAnimalModel> getFamilyData() async {
-    if (animalModel == null) {
+    if (animalModel == null && !isCalled) {
       var response =
           await ViewParticularAnimal.getParticularAnimal(dio, productID);
       var model = MyAnimalModel.fromJson(json.decode(response.data));
@@ -62,7 +77,7 @@ class AnimalDetailsVM {
   }
 
   Future<MyAnimalModel> getHealthData() async {
-    if (animalModel == null) {
+    if (animalModel == null && !isCalled) {
       var response =
           await ViewParticularAnimal.getParticularAnimal(dio, productID);
       var model = MyAnimalModel.fromJson(json.decode(response.data));
@@ -75,9 +90,4 @@ class AnimalDetailsVM {
   void dispose() {
     stream.close();
   }
-}
-
-class AnimalDetailsData{
-  MyAnimalModel model;
-
 }

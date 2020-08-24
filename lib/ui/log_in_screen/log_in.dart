@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   void checkAlready() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('logInToken');
-    if (token.isNotEmpty) {
+    if (token?.isNotEmpty == true) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => AnimalListUI(token)),

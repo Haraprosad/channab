@@ -62,10 +62,11 @@ class MyAnimalModel {
         allMaleUserCanSelect: List<AllUserCanSelect>.from(
             json["all_male_user_can_select"]
                 .map((x) => AllUserCanSelect.fromJson(x))),
-        femaleParentsOfAnimals:
-            FemaleParentsOfAnimals.fromJson(json["female_parents_of_animals"]),
-
-        maleParentsAnimal: json["male_parents_animal"].toString().isNotEmpty
+        femaleParentsOfAnimals: json["female_parents_of_animals"] != null
+            ? FemaleParentsOfAnimals.fromJson(json["female_parents_of_animals"])
+            : FemaleParentsOfAnimals.fromJson(
+                json["female_parents_of_animals"]),
+        maleParentsAnimal: json["male_parents_animal"] != null
             ? FemaleParentsOfAnimals.fromJson(json["male_parents_animal"])
             : FemaleParentsOfAnimals(),
       );
