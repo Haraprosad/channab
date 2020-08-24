@@ -11,7 +11,7 @@ class AnimalDetailsDescriptionVM {
 
   StreamController<MyAnimalModel> stream;
   MyAnimalModel animalModel;
-  var productID = 0;
+  int productID = 0;
 
   AnimalDetailsDescriptionVM(String token) {
     dio = API.getInstance();

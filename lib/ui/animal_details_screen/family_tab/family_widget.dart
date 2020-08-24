@@ -41,9 +41,9 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<AllUserCanSelect> childList =
-                snapshot.data.allChildsUserCanSelect;
-            var maleParent = snapshot.data.maleParentsAnimal;
-            var femaleParent = snapshot.data.femaleParentsOfAnimals;
+                snapshot.data?.allChildsUserCanSelect ?? [];
+            var maleParent = snapshot.data?.maleParentsAnimal ?? [];
+            var femaleParent = snapshot.data?.femaleParentsOfAnimals ?? [];
 
             if (childList.isNotEmpty) {
               //regular view
@@ -52,15 +52,18 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
             }
           }
 
-          var childList = snapshot.data.allChildsUserCanSelect;
-          var maleParent = snapshot.data.maleParentsAnimal;
-          var femaleParent = snapshot.data.femaleParentsOfAnimals;
+          var childList = snapshot.data?.allChildsUserCanSelect ?? [];
+          var maleParent = snapshot.data?.maleParentsAnimal ?? [];
+          var femaleParent = snapshot.data?.femaleParentsOfAnimals ?? [];
           int count;
           if (childList.length == 0) {
             count = 1;
           } else {
             count = childList.length;
           }
+
+          //todo fix this
+          // 98 and 99
           return Container(
             padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
             child: ListView.builder(

@@ -22,8 +22,8 @@ class _MilkingWidgetUIState extends State<MilkingWidgetUI> {
       child: FutureBuilder<MyAnimalModel>(
           future: widget._animalDetailsVM.getMilkingData(),
           builder: (context, snapshot) {
-            var model = snapshot.data.milkAllRecord.milkDataByRow;
-            var rec = snapshot.data.milkAllRecord;
+            var model = snapshot.data?.milkAllRecord?.milkDataByRow ?? [];
+            var rec = snapshot.data?.milkAllRecord ?? MilkAllRecord();
             return Column(
               children: [
                 SizedBox(
@@ -134,21 +134,21 @@ class _MilkingWidgetUIState extends State<MilkingWidgetUI> {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    "${rec.sumOfMorningColoumn}",
+                                    "${rec?.sumOfMorningColoumn ?? ""}",
                                     style: tableEndTextStyle,
                                   ),
                                 ),
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    "${rec.sumOfEveningColourmn}",
+                                    "${rec?.sumOfEveningColourmn ?? ""}",
                                     style: tableEndTextStyle,
                                   ),
                                 ),
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    "${rec.sumOfAll}",
+                                    "${rec?.sumOfAll ?? ""}",
                                     style: tableEndTextStyle,
                                   ),
                                 )

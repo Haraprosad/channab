@@ -16,7 +16,6 @@ class AnimalDetailsVM {
 
   AnimalDetailsVM(String token) {
     dio = API.getInstance();
-//    String token1 = "50a67c112aff02f32cfefd52c242933b727d28bd";
     dio.options.headers["token"] = token;
     stream = StreamController<MyAnimalModel>.broadcast();
   }

@@ -9,6 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class AnimalDesUI extends StatefulWidget {
+  final int id;
+  final String token;
+
+  AnimalDesUI(this.id, this.token);
+
   @override
   _AnimalDesUIState createState() => _AnimalDesUIState();
 }
@@ -31,10 +36,8 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
   @override
   void initState() {
     //replace hard coading
-    int id = 20;
-    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
-    _vm = AnimalDetailsDescriptionVM(token);
-    _vm.getAllData(id);
+    _vm = AnimalDetailsDescriptionVM(widget.token);
+    _vm.getAllData(widget.id);
     super.initState();
   }
 

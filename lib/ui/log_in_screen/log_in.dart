@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
 //    todo comment out
-//    checkAlready();
+    checkAlready();
 
     super.initState();
   }
