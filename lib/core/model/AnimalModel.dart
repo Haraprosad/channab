@@ -64,8 +64,7 @@ class MyAnimalModel {
                 .map((x) => AllUserCanSelect.fromJson(x))),
         femaleParentsOfAnimals: json["female_parents_of_animals"] != null
             ? FemaleParentsOfAnimals.fromJson(json["female_parents_of_animals"])
-            : FemaleParentsOfAnimals.fromJson(
-                json["female_parents_of_animals"]),
+            : FemaleParentsOfAnimals(),
         maleParentsAnimal: json["male_parents_animal"] != null
             ? FemaleParentsOfAnimals.fromJson(json["male_parents_animal"])
             : FemaleParentsOfAnimals(),

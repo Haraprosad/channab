@@ -16,8 +16,8 @@ class AnimalDetailsVM {
 
   AnimalDetailsVM(String token) {
     dio = API.getInstance();
-    String token1 = "50a67c112aff02f32cfefd52c242933b727d28bd";
-    dio.options.headers["token"] = token1;
+//    String token1 = "50a67c112aff02f32cfefd52c242933b727d28bd";
+    dio.options.headers["token"] = token;
     stream = StreamController<MyAnimalModel>.broadcast();
   }
 
@@ -27,10 +27,6 @@ class AnimalDetailsVM {
     var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var decoded = json.decode(response.data);
     var female = decoded["female_parents_of_animals"];
-
-    var s = female != 0;
-
-    var val = female.value;
 
     var model = MyAnimalModel.fromJson(decoded);
     print(response);

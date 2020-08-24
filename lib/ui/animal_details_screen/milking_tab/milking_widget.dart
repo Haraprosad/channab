@@ -59,7 +59,6 @@ class _MilkingWidgetUIState extends State<MilkingWidgetUI> {
                         left: consMedPadH,
                         right: consMedPadH,
                         top: consSmallPad * 2),
-                    height: 510,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
