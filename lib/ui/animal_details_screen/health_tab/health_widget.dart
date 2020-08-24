@@ -21,8 +21,8 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
-      child: FutureBuilder<MyAnimalModel>(
-          future: widget._animalDetailsVM.getHealthData(),
+      child: StreamBuilder<MyAnimalModel>(
+          stream: widget._animalDetailsVM.stream.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var model = snapshot.data.allHealthRecordList;
