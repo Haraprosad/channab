@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class AnimalDesUI extends StatefulWidget {
-  int id;
-  String token;
+  final int id;
+  final String token;
+
   AnimalDesUI(this.id, this.token);
+
   @override
   _AnimalDesUIState createState() => _AnimalDesUIState();
 }
@@ -34,12 +36,8 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
 
   @override
   void initState() {
-    //replace hard coading
-    int id = widget.id;
-    String token = widget.token;
-//    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
-    _vm = AnimalDetailsDescriptionVM(token);
-    _vm.getAllData(id);
+    _vm = AnimalDetailsDescriptionVM(widget.token);
+    _vm.getAllData(widget.id);
     super.initState();
   }
 
@@ -59,10 +57,9 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              //***********Upper portion :1**********
               StreamBuilder<MyAnimalModel>(
                   stream: _vm.stream.stream,
-                  builder: (context, snapshot) {
+                  builder: (ctx, snapshot) {
                     if (snapshot.hasData) {
                       var model = snapshot.data;
                       return Column(
@@ -243,7 +240,7 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
                                     ),
                                   ),
                                   onTap: () {
-                                    showPopupDialog();
+                                    showPopupDialog(ctx);
                                   },
                                 ),
                                 CircleAvatar(
@@ -375,7 +372,7 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
     );
   }
 
-  void showPopupDialog() async {
+  void showPopupDialog(context) async {
     bool res = await showDialog(
       context: context,
       child: AlertDialog(
@@ -402,7 +399,7 @@ class _AnimalDesUIState extends State<AnimalDesUI> {
     );
 
     if (res) {
-      _vm.requestUpdate();
+      _vm.requestUpdate(widget.id);
     }
   }
 }

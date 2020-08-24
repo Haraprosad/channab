@@ -27,9 +27,8 @@ class AnimalDetailsDescriptionVM {
     animalModel = model;
   }
 
-  void requestUpdate() async {
-    var response =
-        await ViewParticularAnimal.getParticularAnimal(dio, productID);
+  void requestUpdate(int id) async {
+    var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var decoded = json.decode(response.data);
 
     var model = MyAnimalModel.fromJson(decoded);

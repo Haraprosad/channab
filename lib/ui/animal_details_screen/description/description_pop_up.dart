@@ -10,15 +10,18 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionPopUp extends StatefulWidget {
-  int id;
-  String token;
+  final int id;
+  final String token;
+
   DescriptionPopUp(this.token, this.id);
+
   @override
   _DescriptionPopUpState createState() => _DescriptionPopUpState();
 }
 
 class _DescriptionPopUpState extends State<DescriptionPopUp> {
   String description;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -36,7 +39,6 @@ class _DescriptionPopUpState extends State<DescriptionPopUp> {
               fontFamily: fontFamilyMontserratBold,
             ),
           ),
-
           SizedBox(
             height: consMedPadH,
           ),
@@ -86,7 +88,6 @@ class _DescriptionPopUpState extends State<DescriptionPopUp> {
                       fontFamily: fontFamilyRobotoMedium),
                 ),
                 onPressed: () {
-                  //todo
                   sendRequest(description);
                 },
               ),
@@ -95,7 +96,6 @@ class _DescriptionPopUpState extends State<DescriptionPopUp> {
           SizedBox(
             height: 15.0,
           ),
-          //todo end
         ],
       ),
     );

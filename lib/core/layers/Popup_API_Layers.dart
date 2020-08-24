@@ -41,6 +41,8 @@ class PopupApiLayer {
     });
 
     //gallery_popup
-    await dio.post("/api/description_popup/", data: formData);
+    var res = await dio.post("/api/description_popup/", data: formData);
+    print(res);
+    return res;
   }
 }
