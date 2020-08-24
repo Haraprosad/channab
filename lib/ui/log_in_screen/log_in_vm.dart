@@ -44,5 +44,4 @@ class LogInVM {
   }
 }
 
-
 class LoginStatus {}

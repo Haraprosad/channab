@@ -4,13 +4,12 @@ import 'package:channab/shared/size_config.dart';
 import 'package:channab/ui/animal_list/animal_list_ui.dart';
 import 'package:channab/ui/log_in_screen/log_in_vm.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class  LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -341,11 +340,7 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (login) {
-        var data = _logInVM.getLogInResponse(mobileNumber, password, context);
-        if (data["status"].toString() == "200") {
-          scaffold.currentState.showSnackBar(
-              getSnackBar("Log In Successfully."));
-        }
+        _logInVM.getLogInResponse(mobileNumber, password, context);
       }
     } else {
       Scaffold.of(context).showSnackBar(
