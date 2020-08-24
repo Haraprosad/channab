@@ -27,6 +27,16 @@ class AnimalDetailsDescriptionVM {
     animalModel = model;
   }
 
+  void requestUpdate() async {
+    var response =
+        await ViewParticularAnimal.getParticularAnimal(dio, productID);
+    var decoded = json.decode(response.data);
+
+    var model = MyAnimalModel.fromJson(decoded);
+    print(response);
+    stream.add(model);
+  }
+
   void dispose() {
     stream.close();
   }

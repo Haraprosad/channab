@@ -57,7 +57,8 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return Container(
+                  child: Center(child: CircularProgressIndicator()));
             }
           }),
     );

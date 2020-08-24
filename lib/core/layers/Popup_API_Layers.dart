@@ -34,7 +34,7 @@ class PopupApiLayer {
     return res;
   }
 
-  static postDescription(Dio dio, File mainImage, int id, String des) async {
+  static postDescription(Dio dio, int id, String des) async {
     FormData formData = new FormData.fromMap({
       "animal_particular_id": id,
       "description": des,

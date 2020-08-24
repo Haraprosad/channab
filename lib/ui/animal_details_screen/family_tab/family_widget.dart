@@ -40,91 +40,81 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
         future: widget._animalDetailsVM.getFamilyData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<AllUserCanSelect> childList =
-                snapshot.data?.allChildsUserCanSelect ?? [];
-            var maleParent = snapshot.data?.maleParentsAnimal ?? [];
-            var femaleParent = snapshot.data?.femaleParentsOfAnimals ?? [];
-
-            if (childList.isNotEmpty) {
-              //regular view
-            } else {
-              //container no data
+            List<ChildAlreadySelect> childList =
+                snapshot.data.childAlreadySelect;
+            var maleParent = snapshot.data.maleParentsAnimal;
+            var femaleParent = snapshot.data.femaleParentsOfAnimals;
+            int count;
+            if (childList.length == 0) {
+              count = childList.length + 1;
             }
-          }
-
-          var childList = snapshot.data?.allChildsUserCanSelect ?? [];
-          var maleParent = snapshot.data?.maleParentsAnimal ?? [];
-          var femaleParent = snapshot.data?.femaleParentsOfAnimals ?? [];
-          int count;
-          if (childList.length == 0) {
-            count = 1;
+            return Container(
+              padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
+              child: ListView.builder(
+                  itemCount: count,
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: consSmallPad * 2,
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              padding: EdgeInsets.only(left: consSmallPad * 2),
+                              child: Text(
+                                "Parents",
+                                style: captionTextStyle,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: consMedPadH,
+                          ),
+                          cardWidget(false, maleParent.animalTag,
+                              maleParent.animalImage, "Male"),
+                          SizedBox(
+                            height: consSmallPad * 2,
+                          ),
+                          cardWidget(false, femaleParent.animalTag,
+                              femaleParent.animalImage, "Female"),
+                          SizedBox(
+                            height: consMedPad * 2,
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              padding: EdgeInsets.only(left: consSmallPad * 2),
+                              child: Text(
+                                "Childs",
+                                style: captionTextStyle,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: consSmallPad * 2,
+                          ),
+                        ],
+                      );
+                    } else {
+                      //todo age response of child is not provided in api
+                      return cardWidget(
+                          true,
+                          childs[index - 1].name,
+                          childList[index - 1].image,
+                          childList[index - 1].gender,
+                          age: "1 year 12 months");
+                    }
+                  }),
+            );
           } else {
-            count = childList.length;
+            return Container(
+              child: Center(child: CircularProgressIndicator()),
+            );
           }
-
-          //todo fix this
-          // 98 and 99
-          return Container(
-            padding: EdgeInsets.only(left: consMedPadH, right: consMedPadH),
-            child: ListView.builder(
-                itemCount: count,
-                scrollDirection: Axis.vertical,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: consSmallPad * 2,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            padding: EdgeInsets.only(left: consSmallPad * 2),
-                            child: Text(
-                              "Parents",
-                              style: captionTextStyle,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: consMedPadH,
-                        ),
-                        cardWidget(false, maleParent.animalTag,
-                            maleParent.animalImage, "Male"),
-                        SizedBox(
-                          height: consSmallPad * 2,
-                        ),
-                        cardWidget(false, femaleParent.animalTag,
-                            femaleParent.animalImage, "Female"),
-                        SizedBox(
-                          height: consMedPad * 2,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            padding: EdgeInsets.only(left: consSmallPad * 2),
-                            child: Text(
-                              "Childs",
-                              style: captionTextStyle,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: consSmallPad * 2,
-                        ),
-                        cardWidget(true, childList[index].animalTag,
-                            "assets/images/cow_img.jpeg", "Male",
-                            age: childs[index].age)
-                      ],
-                    );
-                  }
-                  //todo image response and age response of child is not provided in api
-                  return cardWidget(true, childs[index].name,
-                      "assets/images/cow_img.jpeg", "Male",
-                      age: "1 Year 11 Months");
-                }),
-          );
         });
   }
 
@@ -141,7 +131,8 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10), child: Image.asset(img)),
+              borderRadius: BorderRadius.circular(10),
+              child: (img != null) ? Image.network(img) : Container()),
         ),
         subtitle: isChild
             ? Text(
@@ -149,10 +140,12 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
                 style: subTitleTextStyle,
               )
             : null,
-        title: Text(
-          title,
-          style: titleTextStyle,
-        ),
+        title: (title != null)
+            ? Text(
+                title,
+                style: titleTextStyle,
+              )
+            : Text(""),
         trailing: Container(
           height: 29,
           width: 80,
@@ -160,10 +153,12 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
               color: buttonBackColor,
               borderRadius: BorderRadius.all(Radius.circular(15))),
           child: Center(
-              child: Text(
-            gender,
-            style: tabBarOptionTextStyleWhite,
-          )),
+              child: (gender != null)
+                  ? Text(
+                      gender,
+                      style: tabBarOptionTextStyleWhite,
+                    )
+                  : Text("")),
         ),
       ),
     );

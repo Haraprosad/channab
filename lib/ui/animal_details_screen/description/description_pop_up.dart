@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:channab/core/layers/API.dart';
+import 'package:channab/core/layers/Popup_API_Layers.dart';
 import 'package:channab/shared/colors.dart';
 import 'package:channab/shared/constants.dart';
 import 'package:channab/shared/size_config.dart';
@@ -6,6 +10,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionPopUp extends StatefulWidget {
+  int id;
+  String token;
+  DescriptionPopUp(this.token, this.id);
   @override
   _DescriptionPopUpState createState() => _DescriptionPopUpState();
 }
@@ -80,6 +87,7 @@ class _DescriptionPopUpState extends State<DescriptionPopUp> {
                 ),
                 onPressed: () {
                   //todo
+                  sendRequest(description);
                 },
               ),
             ),
@@ -91,5 +99,16 @@ class _DescriptionPopUpState extends State<DescriptionPopUp> {
         ],
       ),
     );
+  }
+
+  void sendRequest(String des) async {
+    var dio = API.getInstance();
+    dio.options.headers["token"] = widget.token;
+    var res = await PopupApiLayer.postDescription(dio, widget.id, des);
+    print(res);
+    var data = json.decode(res.data);
+    if (data["status"].toString() == "200") {
+      Navigator.of(context).pop(true);
+    }
   }
 }

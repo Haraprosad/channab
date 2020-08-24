@@ -379,8 +379,11 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        AnimalDesUI(widget.id, widget.token)),
+                                    //todo
+                                    builder: (context) => AnimalDesUI(
+                                        int.parse(
+                                            model.productDetails.productId),
+                                        widget.token)),
                               );
                             },
                           ),
