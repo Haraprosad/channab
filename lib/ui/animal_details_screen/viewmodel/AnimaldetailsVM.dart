@@ -23,6 +23,7 @@ class AnimalDetailsVM {
     productID = id;
     var response = await ViewParticularAnimal.getParticularAnimal(dio, id);
     var model = MyAnimalModel.fromJson(json.decode(response.data));
+    print(response);
     stream.add(model);
     animalModel = model;
   }
@@ -74,4 +75,9 @@ class AnimalDetailsVM {
   void dispose() {
     stream.close();
   }
+}
+
+class AnimalDetailsData{
+  MyAnimalModel model;
+
 }

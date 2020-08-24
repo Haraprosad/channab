@@ -16,6 +16,7 @@ class HealthWidgetUI extends StatefulWidget {
 
 class _HealthWidgetUIState extends State<HealthWidgetUI> {
   int totalAmount = 0;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -25,8 +26,6 @@ class _HealthWidgetUIState extends State<HealthWidgetUI> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var model = snapshot.data.allHealthRecordList;
-
-              //todo all health record list response has no data
               return Container(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

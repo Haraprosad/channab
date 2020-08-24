@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -39,6 +40,19 @@ class _LoginPageState extends State<LoginPage> {
   Stream<double> progress;
   ProgressDialog pr;
 
+  var key = GlobalKey<ScaffoldState>();
+
+  void checkAlready() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('logInToken');
+    if (token.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AnimalListUI(token)),
+      );
+    }
+  }
+
   @override
   void initState() {
     phoneNumController = TextEditingController();
@@ -55,6 +69,9 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
 
+    //todo comment out
+    checkAlready();
+
     super.initState();
   }
 
@@ -70,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      key: key,
       backgroundColor: buttonBackColor,
       body: Form(
         key: _formKey,
@@ -343,8 +361,10 @@ class _LoginPageState extends State<LoginPage> {
         var res =
             await _logInVM.getLogInResponse(mobileNumber, password, context);
 
+        await pr?.hide();
+
         if (res["status"].toString() != "200") {
-          Scaffold.of(context).showSnackBar(
+          key.currentState.showSnackBar(
             SnackBar(
               content: Text(
                 res['message'],
@@ -356,7 +376,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } else {
-      Scaffold.of(context).showSnackBar(
+      key.currentState.showSnackBar(
         SnackBar(
           content: Text(
             "No Internet availabele!",
