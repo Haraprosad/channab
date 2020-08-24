@@ -33,6 +33,7 @@ class _FamilyWidgetUIState extends State<FamilyWidgetUI> {
     Child("Animal Tag Name", "1 Year 11 Months"),
     Child("Animal Tag Name", "1 Year 11 Months"),
   ];
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<MyAnimalModel>(

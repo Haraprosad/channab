@@ -39,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   Stream<double> progress;
   ProgressDialog pr;
 
+  var key = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     phoneNumController = TextEditingController();
@@ -70,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      key: key,
       backgroundColor: buttonBackColor,
       body: Form(
         key: _formKey,
@@ -343,8 +346,10 @@ class _LoginPageState extends State<LoginPage> {
         var res =
             await _logInVM.getLogInResponse(mobileNumber, password, context);
 
+        await pr?.hide();
+
         if (res["status"].toString() != "200") {
-          Scaffold.of(context).showSnackBar(
+          key.currentState.showSnackBar(
             SnackBar(
               content: Text(
                 res['message'],
@@ -356,7 +361,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } else {
-      Scaffold.of(context).showSnackBar(
+      key.currentState.showSnackBar(
         SnackBar(
           content: Text(
             "No Internet availabele!",

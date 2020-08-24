@@ -47,6 +47,7 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   //todo******************************
   int seletedTabNumber = 0;
   TabController _tabController;
+
   //for getting token
   @override
   void initState() {
@@ -462,7 +463,13 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
                       ],
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return Container(
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
                   }
                 }),
             //********************uppertion: 2 end**********
