@@ -23,7 +23,7 @@ class _MilkingWidgetUIState extends State<MilkingWidgetUI> {
           future: widget._animalDetailsVM.getMilkingData(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              var model = snapshot.data?.milkAllRecord?.milkDataByRow??[];
+              var model = snapshot.data?.milkAllRecord?.milkDataByRow ?? [];
               var rec = snapshot.data?.milkAllRecord;
               return Column(
                 children: [

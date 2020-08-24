@@ -24,6 +24,7 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var imgProfile;
   var imgFile;
+  String dateOfBirth = "DOB";
 
   //madis and category
   List<String> categoriesName = [
@@ -61,7 +62,13 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("set state call ");
     SizeConfig.init(context);
     return Scaffold(
       key: _scaffoldKey,
@@ -191,12 +198,8 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                             Positioned(
                               child: TextFormField(
                                 decoration: new InputDecoration(
-                                  prefixText: (selectedDate != null)
-                                      ? "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"
-                                      : "DOB",
                                   contentPadding: EdgeInsets.only(
                                       left: 20, top: 5, right: 40),
-                                  hintStyle: hintTextStyle,
                                   border: new OutlineInputBorder(
                                     borderSide: BorderSide(color: dividerColor),
                                     borderRadius: const BorderRadius.all(
@@ -204,6 +207,9 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
                                     ),
                                   ),
                                 ),
+                                style: TextStyle(color: Colors.black),
+                                controller:
+                                    TextEditingController(text: dateOfBirth),
                               ),
                               left: 0,
                               bottom: 0,
@@ -394,9 +400,11 @@ class _FarmAnimalListUpUIState extends State<FarmAnimalListUpUI> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
+        dateOfBirth =
+            "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}";
       });
   }
 
