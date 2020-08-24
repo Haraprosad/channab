@@ -51,7 +51,6 @@ class _AnimalDetailsUIState extends State<AnimalDetailsUI>
   //for getting token
   @override
   void initState() {
-//    String token = "50a67c112aff02f32cfefd52c242933b727d28bd";
     _animalDetailsVM = AnimalDetailsVM(widget.token);
     _animalDetailsVM.getAllData(widget.id);
     _tabController = TabController(length: 4, vsync: this);
