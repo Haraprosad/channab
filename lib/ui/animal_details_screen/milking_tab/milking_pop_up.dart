@@ -154,7 +154,7 @@ class _MilkingPopUpState extends State<MilkingPopUp> {
       Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "Your Milking data Added!",
+            "Your Milking data Added Successfully!",
             style: TextStyle(color: Colors.red),
           ),
           behavior: SnackBarBehavior.floating,
